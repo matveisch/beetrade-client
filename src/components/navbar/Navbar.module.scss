@@ -1,0 +1,27 @@
+@import "../../styles/variables.scss";
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $font-white;
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      position: absolute;
+      border: 0;
+      background-color: unset;
+      color: $font-white;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 39px;
+  }
+}

@@ -1,0 +1,7 @@
+@import "../styles/variables.scss";
+
+.app {
+  display: flex;
+  flex-direction: column;
+  background: $background-black;
+}
