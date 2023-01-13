@@ -1,0 +1,17 @@
+.bulletContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .bulletFrame {
+    width: 37px;
+    height: 37px;
+  }
+
+  .bullet {
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    z-index: 1;
+  }
+}

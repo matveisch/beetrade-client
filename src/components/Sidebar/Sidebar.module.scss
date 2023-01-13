@@ -1,0 +1,50 @@
+.sideBar {
+  width: 310px;
+
+  .progressBar,
+  .progress {
+    height: 13px;
+  }
+
+  .progressBarContainer {
+    h1 {
+      text-align: center;
+      color: #fc9a37;
+      font-family: 'Arimo', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 95.52%;
+      letter-spacing: 0.01em;
+      margin: 0 0 8px 0;
+    }
+  }
+
+  .progressBar {
+    width: 100%;
+    height: 13px;
+    background: linear-gradient(264.3deg, rgba(158, 47, 255, 0.3) -168.03%, rgba(255, 158, 47, 0.3) 100%);
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    .progress {
+      background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+      border-radius: 8px;
+    }
+  }
+
+  .listOfVideos {
+    background-image: linear-gradient(180deg, rgba(255, 158, 47, 0.1) 0%, rgba(158, 47, 255, 0.1) 100%);
+    background-attachment: fixed;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+
+    .gap {
+      height: 15px;
+      background-color: #09040f;
+    }
+  }
+}

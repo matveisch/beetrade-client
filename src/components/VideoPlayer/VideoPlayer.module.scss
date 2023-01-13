@@ -10,7 +10,11 @@
     width: 100%;
   }
 
-  img {
+  button {
+    border: 0;
+    padding: 0;
     position: absolute;
+    background-color: unset;
+    cursor: pointer;
   }
 }
