@@ -1,10 +1,13 @@
-import classes from "./VideoPlayer.module.scss";
-import video from "../../assets/videos/pexels-mart-production-8471384.mp4";
-import playButton from "../../assets/images/playButton.svg";
-import videoThumbnail from "../../assets/images/videoThumbnail.svg";
-import { useEffect, useRef, useState } from "react";
+import classes from './VideoPlayer.module.scss';
+import playButton from '../../assets/images/playButton.svg';
+import videoThumbnail from '../../assets/images/videoThumbnail.svg';
+import { useRef, useState } from 'react';
 
-export function VideoPlayer() {
+interface VideoPlayerProps {
+  videoPath: string;
+}
+
+export function VideoPlayer({ videoPath }: VideoPlayerProps) {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
   const currentVideo = useRef<HTMLVideoElement>(null);
 
@@ -12,14 +15,13 @@ export function VideoPlayer() {
     <div className={classes.videoContainer}>
       <video
         className={classes.video}
-        controls
+        controls={videoIsPlaying}
         poster={videoThumbnail}
         ref={currentVideo}
         onClick={() => {
-          setVideoIsPlaying(!videoIsPlaying);
-        }}
-      >
-        <source src={video} type="video/mp4" />
+          setVideoIsPlaying(true);
+        }}>
+        <source src={videoPath} type="video/mp4" />
         Sorry, your browser doesn't support videos.
       </video>
       {!videoIsPlaying && (
@@ -28,7 +30,7 @@ export function VideoPlayer() {
           alt="play button"
           onClick={() => {
             currentVideo.current?.play();
-            setVideoIsPlaying(!videoIsPlaying);
+            setVideoIsPlaying(true);
           }}
         />
       )}
