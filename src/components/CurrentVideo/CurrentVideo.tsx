@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { Sidebar } from '../Sidebar/Sidebar';
-import mockVideos from '../../assets/data/mockData';
-import { VideoType } from '../../interface/types';
+import { mockSections, mockVideos } from '../../assets/data/mockData';
+import { SectionType, VideoType } from '../../interface/types';
+import SidebarContext from '../../context/SidebarContext';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos.find(video => !video.watched);
@@ -13,24 +14,34 @@ export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
 
 function CurrentVideo() {
   const [videos, setVideos] = useState<VideoType[]>();
-  const [firstUnseenVideo, setFirstUnseenVideo] = useState<VideoType | undefined>();
+  const [currentVideo, setCurrentVideo] = useState<VideoType>();
+
+  const [sections, setSections] = useState<SectionType[]>();
+  const [currentSection, setCurrentSection] = useState<string>();
 
   useEffect(() => {
     setVideos(mockVideos);
+    setSections(mockSections);
   }, []);
 
   useEffect(() => {
-    if (videos) setFirstUnseenVideo(getFirstUnseenVideo(videos));
+    if (videos) {
+      const video = getFirstUnseenVideo(videos);
+      setCurrentVideo(video);
+      setCurrentSection(video.section);
+    }
   }, [videos]);
 
-  if (!firstUnseenVideo) return <div>error</div>;
+  if (!videos || !currentVideo) return <div>error</div>;
 
   return (
     <div className={classes.currentVideo}>
       <div>
-        <VideoPlayer videoPath={firstUnseenVideo.path} />
+        <VideoPlayer videoPath={currentVideo.path} />
       </div>
-      <Sidebar currentVideo={firstUnseenVideo} />
+      <SidebarContext.Provider value={{ currentVideo }}>
+        <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} />
+      </SidebarContext.Provider>
     </div>
   );
 }

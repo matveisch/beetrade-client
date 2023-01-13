@@ -1,6 +1,6 @@
-import { VideoType } from '../../interface/types';
+import { SectionType, VideoType } from '../../interface/types';
 
-const mockVideos: VideoType[] = [
+export const mockVideos: VideoType[] = [
   {
     _id: '1',
     name: 'Video One',
@@ -35,4 +35,20 @@ const mockVideos: VideoType[] = [
   },
 ];
 
-export default mockVideos;
+export const mockSections: SectionType[] = [
+  {
+    _id: '1',
+    name: 'Section One',
+    description: 'Section with videos about cryptocurrency',
+  },
+  {
+    _id: '2',
+    name: 'Section Two',
+    description: 'Stock market and all you want to know about it',
+  },
+  {
+    _id: '3',
+    name: 'Section Three',
+    description: 'Section three description',
+  },
+];

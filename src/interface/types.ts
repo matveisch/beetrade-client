@@ -6,3 +6,9 @@ export interface VideoType {
   section: string;
   course: string;
 }
+
+export interface SectionType {
+  _id: string;
+  name: string;
+  description: string;
+}
