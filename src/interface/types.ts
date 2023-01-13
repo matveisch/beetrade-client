@@ -3,5 +3,6 @@ export interface VideoType {
   name: string;
   path: string;
   watched: boolean;
-  courseName: string;
+  section: string;
+  course: string;
 }

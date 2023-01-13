@@ -1,0 +1,39 @@
+.courseChooser {
+  background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+  border-radius: 8px;
+  margin-top: 60px;
+  padding: 11px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  .courseTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-family: 'Arimo', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 95.52%;
+      text-align: right;
+      letter-spacing: 0.01em;
+      color: #000000;
+    }
+  }
+
+  .courseDescription {
+    h1 {
+      font-family: 'Arimo', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 95.52%;
+      text-align: right;
+      letter-spacing: 0.01em;
+      color: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
