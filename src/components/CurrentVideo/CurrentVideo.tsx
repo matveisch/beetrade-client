@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
-import { Sidebar } from '../Sidebar/Sidebar';
+import Sidebar from '../Sidebar/Sidebar';
 import { mockVideos } from '../../assets/data/mockData';
 import { SectionType, VideoType } from '../../interface/types';
 import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
@@ -20,8 +20,6 @@ function CurrentVideo() {
   useEffect(() => {
     setVideos(mockVideos);
   }, []);
-
-  console.log(currentVideo);
 
   useEffect(() => {
     if (videos) {
