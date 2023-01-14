@@ -3,7 +3,7 @@ export interface VideoType {
   name: string;
   path: string;
   watched: boolean;
-  section: string;
+  section: SectionType;
   course: string;
 }
 

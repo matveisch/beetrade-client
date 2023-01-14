@@ -20,17 +20,13 @@ export function handleSectionChange(sections: SectionType[], direction: string, 
 
 function CourseChooser() {
   const [sections, setSections] = useState<SectionType[]>();
-  const { currentVideo } = useContext(SidebarContext) as SidebarContextType;
-  const [currentSection, setCurrentSection] = useState<SectionType>();
+  const { currentVideo, currentSection, setCurrentSection } = useContext(SidebarContext) as SidebarContextType;
 
   useEffect(() => {
     setSections(mockSections);
   }, []);
 
-  useEffect(() => {
-    setCurrentSection(sections?.find(section => section.name === currentVideo.section));
-  }, [sections, currentVideo]);
-
+  // todo: error handling
   if (!sections || !currentSection) return <div>error</div>;
 
   return (
@@ -53,7 +49,7 @@ function CourseChooser() {
         </button>
       </div>
       <div className={classes.courseDescription}>
-        <h1>דסקריבשן על השעור מה שם מה לומדים</h1>
+        <h1>{currentSection.description}</h1>
       </div>
     </div>
   );

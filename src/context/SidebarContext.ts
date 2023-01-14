@@ -1,8 +1,10 @@
-import { createContext } from 'react';
-import { VideoType } from '../interface/types';
+import { createContext, Dispatch, SetStateAction } from 'react';
+import { SectionType, VideoType } from '../interface/types';
 
 export interface SidebarContextType {
   currentVideo: VideoType;
+  currentSection: SectionType;
+  setCurrentSection: Dispatch<SetStateAction<SectionType>>;
 }
 
 const SidebarContext = createContext<SidebarContextType | null>(null);

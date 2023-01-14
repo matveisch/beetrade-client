@@ -4,7 +4,7 @@ import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { mockSections, mockVideos } from '../../assets/data/mockData';
 import { SectionType, VideoType } from '../../interface/types';
-import SidebarContext from '../../context/SidebarContext';
+import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos.find(video => !video.watched);
@@ -15,13 +15,10 @@ export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
 function CurrentVideo() {
   const [videos, setVideos] = useState<VideoType[]>();
   const [currentVideo, setCurrentVideo] = useState<VideoType>();
-
-  const [sections, setSections] = useState<SectionType[]>();
-  const [currentSection, setCurrentSection] = useState<string>();
+  const [currentSection, setCurrentSection] = useState<SectionType>();
 
   useEffect(() => {
     setVideos(mockVideos);
-    setSections(mockSections);
   }, []);
 
   useEffect(() => {
@@ -32,14 +29,17 @@ function CurrentVideo() {
     }
   }, [videos]);
 
-  if (!videos || !currentVideo) return <div>error</div>;
+  // todo: error handling
+  if (!videos || !currentVideo || !currentSection) return <div>error</div>;
+
+  const contextValue = { currentVideo, currentSection, setCurrentSection };
 
   return (
     <div className={classes.currentVideo}>
       <div>
         <VideoPlayer videoPath={currentVideo.path} />
       </div>
-      <SidebarContext.Provider value={{ currentVideo }}>
+      <SidebarContext.Provider value={contextValue as SidebarContextType}>
         <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} />
       </SidebarContext.Provider>
     </div>
