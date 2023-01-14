@@ -3,6 +3,7 @@ import { SectionType, VideoType } from '../interface/types';
 
 export interface SidebarContextType {
   currentVideo: VideoType;
+  setCurrentVideo: Dispatch<SetStateAction<VideoType>>;
   currentSection: SectionType;
   setCurrentSection: Dispatch<SetStateAction<SectionType>>;
 }

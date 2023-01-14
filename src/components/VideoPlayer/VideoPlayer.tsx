@@ -1,15 +1,19 @@
-import { useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import classes from './VideoPlayer.module.scss';
 import playButton from '../../assets/images/playButton.svg';
 import videoThumbnail from '../../assets/images/videoThumbnail.svg';
+import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
 
-interface VideoPlayerProps {
-  videoPath: string;
-}
-
-function VideoPlayer({ videoPath }: VideoPlayerProps) {
+function VideoPlayer() {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
-  const currentVideo = useRef<HTMLVideoElement>(null);
+  const currentVideoRef = useRef<HTMLVideoElement>(null);
+
+  const { currentVideo } = useContext(SidebarContext) as SidebarContextType;
+
+  useEffect(() => {
+    setVideoIsPlaying(false);
+    currentVideoRef.current?.load();
+  }, [currentVideo]);
 
   return (
     <div className={classes.videoContainer}>
@@ -17,17 +21,17 @@ function VideoPlayer({ videoPath }: VideoPlayerProps) {
         className={classes.video}
         controls={videoIsPlaying}
         poster={videoThumbnail}
-        ref={currentVideo}
+        ref={currentVideoRef}
         onClick={() => {
           setVideoIsPlaying(true);
         }}>
-        <source src={videoPath} type="video/mp4" />
+        <source src={currentVideo.path} type="video/mp4" />
       </video>
       {!videoIsPlaying && (
         <button
           type="button"
           onClick={() => {
-            currentVideo.current?.play();
+            currentVideoRef.current?.play();
             setVideoIsPlaying(true);
           }}>
           <img src={playButton} alt="play button" />

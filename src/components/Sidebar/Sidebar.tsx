@@ -24,7 +24,7 @@ export function percentOfCompletedVideos(videos: VideoType[]) {
 }
 
 export function Sidebar({ currentSectionVideos }: SidebarProps) {
-  const { currentVideo } = useContext(SidebarContext) as SidebarContextType;
+  const { currentVideo, setCurrentVideo } = useContext(SidebarContext) as SidebarContextType;
 
   return (
     <aside className={classes.sideBar}>
@@ -38,7 +38,7 @@ export function Sidebar({ currentSectionVideos }: SidebarProps) {
       <div className={classes.listOfVideos}>
         {currentSectionVideos.map((video, index, row) => {
           return (
-            <div key={video._id}>
+            <div key={video._id} onClick={() => setCurrentVideo(video)}>
               <VideoElement isActive={currentVideo._id === video._id} isWatched={video.watched} />
               {index + 1 !== row.length && <div className={classes.gap} />}
             </div>

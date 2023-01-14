@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { Sidebar } from '../Sidebar/Sidebar';
-import { mockSections, mockVideos } from '../../assets/data/mockData';
+import { mockVideos } from '../../assets/data/mockData';
 import { SectionType, VideoType } from '../../interface/types';
 import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
 
@@ -21,6 +21,8 @@ function CurrentVideo() {
     setVideos(mockVideos);
   }, []);
 
+  console.log(currentVideo);
+
   useEffect(() => {
     if (videos) {
       const video = getFirstUnseenVideo(videos);
@@ -32,14 +34,15 @@ function CurrentVideo() {
   // todo: error handling
   if (!videos || !currentVideo || !currentSection) return <div>error</div>;
 
-  const contextValue = { currentVideo, currentSection, setCurrentSection };
+  // todo: add use memo
+  const contextValue = { currentVideo, setCurrentVideo, currentSection, setCurrentSection };
 
   return (
     <div className={classes.currentVideo}>
-      <div>
-        <VideoPlayer videoPath={currentVideo.path} />
-      </div>
       <SidebarContext.Provider value={contextValue as SidebarContextType}>
+        <div>
+          <VideoPlayer />
+        </div>
         <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} />
       </SidebarContext.Provider>
     </div>

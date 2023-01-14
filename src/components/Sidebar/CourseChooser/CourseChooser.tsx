@@ -20,7 +20,7 @@ export function handleSectionChange(sections: SectionType[], direction: string, 
 
 function CourseChooser() {
   const [sections, setSections] = useState<SectionType[]>();
-  const { currentVideo, currentSection, setCurrentSection } = useContext(SidebarContext) as SidebarContextType;
+  const { currentSection, setCurrentSection } = useContext(SidebarContext) as SidebarContextType;
 
   useEffect(() => {
     setSections(mockSections);
