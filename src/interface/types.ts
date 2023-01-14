@@ -5,6 +5,7 @@ export interface VideoType {
   watched: boolean;
   section: SectionType;
   course: string;
+  description: string;
 }
 
 export interface SectionType {

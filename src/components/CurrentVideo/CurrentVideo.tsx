@@ -5,6 +5,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import { mockVideos } from '../../assets/data/mockData';
 import { SectionType, VideoType } from '../../interface/types';
 import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
+import Contents from '../Contents/Contents';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos.find(video => !video.watched);
@@ -38,8 +39,9 @@ function CurrentVideo() {
   return (
     <div className={classes.currentVideo}>
       <SidebarContext.Provider value={contextValue as SidebarContextType}>
-        <div>
+        <div className={classes.videoPlayerContainer}>
           <VideoPlayer />
+          <Contents />
         </div>
         <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} />
       </SidebarContext.Provider>

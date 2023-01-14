@@ -1,5 +1,5 @@
 import classes from './VideoElement.module.scss';
-import BulletPoint from '../../../ui/BulletPoint/BulletPoint';
+import BulletPoint from './BulletPoint/BulletPoint';
 
 interface VideoElementProps {
   isActive: boolean;

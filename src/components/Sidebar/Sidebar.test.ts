@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { percentOfCompletedVideos } from './Sidebar';
 import { mockVideos } from '../../assets/data/mockData';
+import { percentOfCompletedVideos } from './ProgressBar/ProgressBar';
 
 describe('Sidebar component', () => {
   it('counts percent of watched videos', () => {

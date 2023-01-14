@@ -26,6 +26,7 @@ export const mockVideos: VideoType[] = [
     watched: true,
     section: mockSections[0],
     course: 'Course One',
+    description: 'video about money',
   },
   {
     _id: '2',
@@ -34,6 +35,7 @@ export const mockVideos: VideoType[] = [
     watched: true,
     section: mockSections[0],
     course: 'Course One',
+    description: 'video about crypto',
   },
   {
     _id: '3',
@@ -42,6 +44,7 @@ export const mockVideos: VideoType[] = [
     watched: true,
     section: mockSections[1],
     course: 'Course One',
+    description: 'video about stocks',
   },
   {
     _id: '4',
@@ -50,5 +53,6 @@ export const mockVideos: VideoType[] = [
     watched: false,
     section: mockSections[1],
     course: 'Course One',
+    description: 'video about market itself',
   },
 ];

@@ -27,7 +27,7 @@
   justify-content: flex-end;
 
   .progress {
-    background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+    background: $main-linear;
     border-radius: 8px;
   }
 }

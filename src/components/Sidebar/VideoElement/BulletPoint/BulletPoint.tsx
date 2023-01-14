@@ -1,6 +1,6 @@
 import classes from './BulletPoint.module.scss';
-import emptyBullet from '../../assets/images/empty-bullet.svg';
-import bulletFill from '../../assets/images/bullet-fill.svg';
+import emptyBullet from '../../../../assets/images/empty-bullet.svg';
+import bulletFill from '../../../../assets/images/bullet-fill.svg';
 
 interface BulletPointProps {
   isChecked: boolean;

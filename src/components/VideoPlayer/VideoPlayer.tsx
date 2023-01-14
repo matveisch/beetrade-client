@@ -37,6 +37,7 @@ function VideoPlayer() {
           <img src={playButton} alt="play button" />
         </button>
       )}
+      <div className={classes.videoShadow} />
     </div>
   );
 }
