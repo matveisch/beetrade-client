@@ -6,12 +6,13 @@ import ProgressBar from './ProgressBar/ProgressBar';
 
 interface SidebarProps {
   currentSectionVideos: VideoType[];
+  videos: VideoType[];
 }
 
-function Sidebar({ currentSectionVideos }: SidebarProps) {
+function Sidebar({ currentSectionVideos, videos }: SidebarProps) {
   return (
     <aside className={classes.sideBar}>
-      <ProgressBar videos={currentSectionVideos} />
+      <ProgressBar videos={videos} />
       <CourseChooser />
       <ListOfVideos currentSectionVideos={currentSectionVideos} />
     </aside>

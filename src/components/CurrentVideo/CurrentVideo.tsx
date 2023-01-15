@@ -43,7 +43,7 @@ function CurrentVideo() {
           <VideoPlayer />
           <Contents />
         </div>
-        <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} />
+        <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} videos={videos} />
       </SidebarContext.Provider>
     </div>
   );

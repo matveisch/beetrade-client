@@ -1,6 +1,7 @@
 .videoElement {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 21px 20px;
   border-radius: 8px;
   width: 100%;
@@ -9,4 +10,50 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+
+  .rightContainer {
+    display: flex;
+    gap: 12px;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    h1 {
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 95.52%;
+      text-align: right;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+
+    p {
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 95.52%;
+      text-align: right;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+  }
+
+  .videoLengthContainer {
+    p {
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 95.52%;
+      text-align: right;
+      letter-spacing: 0.01em;
+      color: #ffffff;
+    }
+  }
 }

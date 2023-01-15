@@ -11,6 +11,7 @@ interface ListOfVideosProps {
 function ListOfVideos({ currentSectionVideos }: ListOfVideosProps) {
   const { currentVideo, setCurrentVideo } = useContext(SidebarContext) as SidebarContextType;
 
+  // todo: add context here passing current videos
   return (
     <div className={classes.listOfVideos}>
       {currentSectionVideos.map(video => {
@@ -18,7 +19,7 @@ function ListOfVideos({ currentSectionVideos }: ListOfVideosProps) {
           <VideoElement
             key={video._id}
             isActive={currentVideo._id === video._id}
-            isWatched={video.watched}
+            video={video}
             onClick={() => setCurrentVideo(video)}
           />
         );
