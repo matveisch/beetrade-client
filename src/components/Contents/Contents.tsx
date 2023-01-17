@@ -4,6 +4,7 @@ import { VideoType } from '../../interface/types';
 import classes from './Contents.module.scss';
 import Description from './Description/Description';
 import NavButton from './NavButton/NavButton';
+import SectionsGrid from './SectionsGrid/SectionsGrid';
 
 interface ButtonType {
   title: string;
@@ -28,10 +29,8 @@ export function getRightComponent(button: ButtonType | undefined, currentVideo: 
   switch (button?.title) {
     case 'סקירה כללית':
       return <Description body={currentVideo.description} />;
-    case 'שאילות':
-      return 'שאילות';
     case 'רשימת שיעורים':
-      return 'רשימת שיעורים';
+      return <SectionsGrid />;
     default:
       return 'סקירה כללית';
   }
@@ -40,7 +39,6 @@ export function getRightComponent(button: ButtonType | undefined, currentVideo: 
 function Contents() {
   const [buttons, setButtons] = useState([
     { title: 'סקירה כללית', active: true },
-    { title: 'שאילות', active: false },
     { title: 'רשימת שיעורים', active: false },
   ]);
 

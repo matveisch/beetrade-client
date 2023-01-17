@@ -1,0 +1,61 @@
+.sectionElement {
+  height: 177px;
+  background: linear-gradient(0deg, rgba(17, 7, 28, 0.7), rgba(17, 7, 28, 0.7)),
+    url('../../../../assets/images/section-cover.svg');
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+  }
+
+  .header {
+    display: flex;
+    position: relative;
+    padding: 12px 23px;
+    gap: 15px;
+
+    background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+    border-radius: 8px;
+
+    .playButtonContainer {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .playButton {
+        position: absolute;
+        right: 9.86px;
+      }
+    }
+
+    .titleContainer {
+      display: flex;
+      align-items: center;
+
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 95.52%;
+
+      text-align: right;
+      letter-spacing: 0.01em;
+
+      color: #09040f;
+    }
+  }
+
+  .video {
+    font-family: 'Arimo', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 95.52%;
+
+    text-align: right;
+    letter-spacing: 0.01em;
+
+    color: #09040f;
+  }
+}

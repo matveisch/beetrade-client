@@ -1,0 +1,24 @@
+.sectionsGrid {
+  h1 {
+    font-family: 'Arimo', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 95.52%;
+
+    text-align: right;
+    letter-spacing: 0.01em;
+
+    background: linear-gradient(264.3deg, #9e2fff -168.03%, #ff9e2f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .coursesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 20px;
+    margin-top: 37px;
+  }
+}
