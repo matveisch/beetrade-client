@@ -1,14 +1,15 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classes from './VideoPlayer.module.scss';
 import playButton from '../../assets/images/playButton.svg';
 import videoThumbnail from '../../assets/images/videoThumbnail.svg';
-import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
+import { useAppSelector } from '../../hooks';
+import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
 
 function VideoPlayer() {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
   const currentVideoRef = useRef<HTMLVideoElement>(null);
 
-  const { currentVideo } = useContext(SidebarContext) as SidebarContextType;
+  const currentVideo = useAppSelector(selectCurrentVideo);
 
   useEffect(() => {
     setVideoIsPlaying(false);
@@ -25,7 +26,7 @@ function VideoPlayer() {
         onClick={() => {
           setVideoIsPlaying(true);
         }}>
-        <source src={currentVideo.path} type="video/mp4" />
+        <source src={currentVideo?.path} type="video/mp4" />
       </video>
       {!videoIsPlaying && (
         <button

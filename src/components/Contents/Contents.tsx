@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react';
-import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
+import { useState } from 'react';
+import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
+import { useAppSelector } from '../../hooks';
 import { VideoType } from '../../interface/types';
 import classes from './Contents.module.scss';
 import Description from './Description/Description';
@@ -42,7 +43,9 @@ function Contents() {
     { title: 'רשימת שיעורים', active: false },
   ]);
 
-  const { currentVideo } = useContext(SidebarContext) as SidebarContextType;
+  const currentVideo = useAppSelector(selectCurrentVideo);
+
+  if (!currentVideo) return <div>error</div>;
 
   return (
     <div className={classes.contents}>

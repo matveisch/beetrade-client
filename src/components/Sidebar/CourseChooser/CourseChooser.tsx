@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './CourseChooser.module.scss';
 import arrow from '../../../assets/images/Arrow 6.svg';
-import SidebarContext, { SidebarContextType } from '../../../context/SidebarContext';
 import { SectionType } from '../../../interface/types';
 import { mockSections } from '../../../assets/data/mockData';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { selectCurrentSection, setCurrentSection } from '../../../features/currentSection/currentSectionSlice';
 
 export function handleSectionChange(sections: SectionType[], direction: string, currentSection: SectionType) {
   let section: SectionType = currentSection;
@@ -20,7 +21,8 @@ export function handleSectionChange(sections: SectionType[], direction: string, 
 
 function CourseChooser() {
   const [sections, setSections] = useState<SectionType[]>();
-  const { currentSection, setCurrentSection } = useContext(SidebarContext) as SidebarContextType;
+  const currentSection = useAppSelector(selectCurrentSection);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setSections(mockSections);
@@ -35,7 +37,7 @@ function CourseChooser() {
         <button
           type="button"
           onClick={() => {
-            setCurrentSection(handleSectionChange(sections, 'right', currentSection));
+            dispatch(setCurrentSection(handleSectionChange(sections, 'right', currentSection)));
           }}>
           <img src={arrow} alt="" style={{ transform: 'rotate(-180deg)' }} />
         </button>
@@ -43,7 +45,7 @@ function CourseChooser() {
         <button
           type="button"
           onClick={() => {
-            setCurrentSection(handleSectionChange(sections, 'left', currentSection));
+            dispatch(setCurrentSection(handleSectionChange(sections, 'left', currentSection)));
           }}>
           <img src={arrow} alt="" />
         </button>

@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import Sidebar from '../Sidebar/Sidebar';
 import { mockVideos } from '../../assets/data/mockData';
-import { SectionType, VideoType } from '../../interface/types';
-import SidebarContext, { SidebarContextType } from '../../context/SidebarContext';
+import { VideoType } from '../../interface/types';
 import Contents from '../Contents/Contents';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectVideos, setVideos } from '../../features/videos/videosSlice';
+import { selectCurrentVideo, setCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
+import { selectCurrentSection, setCurrentSection } from '../../features/currentSection/currentSectionSlice';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos.find(video => !video.watched);
@@ -14,37 +17,33 @@ export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
 }
 
 function CurrentVideo() {
-  const [videos, setVideos] = useState<VideoType[]>();
-  const [currentVideo, setCurrentVideo] = useState<VideoType>();
-  const [currentSection, setCurrentSection] = useState<SectionType>();
+  const videos = useAppSelector(selectVideos);
+  const currentVideo = useAppSelector(selectCurrentVideo);
+  const currentSection = useAppSelector(selectCurrentSection);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setVideos(mockVideos);
+    dispatch(setVideos(mockVideos));
   }, []);
 
   useEffect(() => {
     if (videos) {
       const video = getFirstUnseenVideo(videos);
-      setCurrentVideo(video);
-      setCurrentSection(video.section);
+      dispatch(setCurrentVideo(video));
+      dispatch(setCurrentSection(video.section));
     }
   }, [videos]);
 
   // todo: error handling
   if (!videos || !currentVideo || !currentSection) return <div>error</div>;
 
-  // todo: add use memo
-  const contextValue = { currentVideo, setCurrentVideo, currentSection, setCurrentSection };
-
   return (
     <div className={classes.currentVideo}>
-      <SidebarContext.Provider value={contextValue as SidebarContextType}>
-        <div className={classes.videoPlayerContainer}>
-          <VideoPlayer />
-          <Contents />
-        </div>
-        <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} videos={videos} />
-      </SidebarContext.Provider>
+      <div className={classes.videoPlayerContainer}>
+        <VideoPlayer />
+        <Contents />
+      </div>
+      <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} videos={videos} />
     </div>
   );
 }

@@ -1,9 +1,11 @@
-import classes from "./Navbar.module.scss";
+import classes from './Navbar.module.scss';
 
-export function Navbar() {
+function Navbar() {
   return (
     <div className={classes.navbar}>
       <h1>BeeTrade</h1>
     </div>
   );
 }
+
+export default Navbar;

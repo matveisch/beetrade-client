@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import SidebarContext, { SidebarContextType } from '../../../context/SidebarContext';
+import { selectCurrentVideo, setCurrentVideo } from '../../../features/currentVideo/currentVideoSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { VideoType } from '../../../interface/types';
 import VideoElement from '../VideoElement/VideoElement';
 import classes from './ListOfVideos.module.scss';
@@ -9,7 +9,8 @@ interface ListOfVideosProps {
 }
 
 function ListOfVideos({ currentSectionVideos }: ListOfVideosProps) {
-  const { currentVideo, setCurrentVideo } = useContext(SidebarContext) as SidebarContextType;
+  const currentVideo = useAppSelector(selectCurrentVideo);
+  const dispatch = useAppDispatch();
 
   // todo: add context here passing current videos
   return (
@@ -18,9 +19,9 @@ function ListOfVideos({ currentSectionVideos }: ListOfVideosProps) {
         return (
           <VideoElement
             key={video._id}
-            isActive={currentVideo._id === video._id}
+            isActive={currentVideo?._id === video._id}
             video={video}
-            onClick={() => setCurrentVideo(video)}
+            onClick={() => dispatch(setCurrentVideo(video))}
           />
         );
       })}
