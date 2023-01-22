@@ -1,18 +1,18 @@
-import classes from './styles/App.module.scss';
+import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import CurrentVideo from './components/CurrentVideo/CurrentVideo';
+import classes from './styles/App.module.scss';
 
-function App() {
+function Layout() {
   return (
     <div className={classes.app}>
       <header>
         <Navbar />
       </header>
       <main className={classes.main}>
-        <CurrentVideo />
+        <Outlet />
       </main>
     </div>
   );
 }
 
-export default App;
+export default Layout;

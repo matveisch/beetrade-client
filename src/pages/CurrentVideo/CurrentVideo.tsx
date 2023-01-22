@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import classes from './CurrentVideo.module.scss';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
-import Sidebar from '../Sidebar/Sidebar';
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import { mockVideos } from '../../assets/data/mockData';
 import { VideoType } from '../../interface/types';
-import Contents from '../Contents/Contents';
+import Contents from '../../components/Contents/Contents';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectVideos, setVideos } from '../../features/videos/videosSlice';
 import { selectCurrentVideo, setCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
