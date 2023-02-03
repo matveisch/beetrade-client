@@ -21,6 +21,7 @@ function VideoPlayer() {
       <video
         className={classes.video}
         controls={videoIsPlaying}
+        controlsList="nodownload"
         poster={videoThumbnail}
         ref={currentVideoRef}
         onClick={() => {
