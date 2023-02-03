@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import { mockVideos } from '../../assets/data/mockData';
 import { VideoType } from '../../interface/types';
 import Contents from '../../components/Contents/Contents';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -22,8 +21,23 @@ function CurrentVideo() {
   const currentSection = useAppSelector(selectCurrentSection);
   const dispatch = useAppDispatch();
 
+  async function getVideos() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API}/videos`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return await response.json();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
-    dispatch(setVideos(mockVideos));
+    getVideos().then(data => {
+      dispatch(setVideos(data));
+    });
   }, []);
 
   useEffect(() => {
@@ -43,7 +57,10 @@ function CurrentVideo() {
         <VideoPlayer />
         <Contents />
       </div>
-      <Sidebar currentSectionVideos={videos.filter(video => video.section === currentSection)} videos={videos} />
+      <Sidebar
+        currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
+        videos={videos}
+      />
     </div>
   );
 }

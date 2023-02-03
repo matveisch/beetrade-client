@@ -26,7 +26,10 @@ function VideoPlayer() {
         onClick={() => {
           setVideoIsPlaying(true);
         }}>
-        <source src={currentVideo?.path} type="video/mp4" />
+        <source
+          src={`${import.meta.env.VITE_API}/videos/${currentVideo?._id}?auth_token=${localStorage.getItem('token')}`}
+          type="video/mp4"
+        />
       </video>
       {!videoIsPlaying && (
         <button

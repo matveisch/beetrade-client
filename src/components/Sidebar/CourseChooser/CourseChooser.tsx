@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import classes from './CourseChooser.module.scss';
 import arrow from '../../../assets/images/Arrow 6.svg';
 import { SectionType } from '../../../interface/types';
-import { mockSections } from '../../../assets/data/mockData';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectCurrentSection, setCurrentSection } from '../../../features/currentSection/currentSectionSlice';
+import { selectSections, setSections } from '../../../features/sections/sectionsSlice';
 
 export function handleSectionChange(sections: SectionType[], direction: string, currentSection: SectionType) {
   let section: SectionType = currentSection;
@@ -20,12 +20,23 @@ export function handleSectionChange(sections: SectionType[], direction: string, 
 }
 
 function CourseChooser() {
-  const [sections, setSections] = useState<SectionType[]>();
   const currentSection = useAppSelector(selectCurrentSection);
+  const sections = useAppSelector(selectSections);
   const dispatch = useAppDispatch();
 
+  async function getSections() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API}/section`);
+      return await response.json();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
-    setSections(mockSections);
+    getSections().then(data => {
+      dispatch(setSections(data));
+    });
   }, []);
 
   // todo: error handling
