@@ -16,7 +16,15 @@ function InputField({ errors, touched, id, placeholder, type, label }: InputFiel
     <div className={classes.inputField}>
       <label htmlFor={id}>{label}</label>
       <div className={classes.inputContainer}>
-        <Field id={id} name={id} placeholder={placeholder} type={type} errors={errors} touched={touched?.toString()} />
+        <Field
+          id={id}
+          name={id}
+          placeholder={placeholder}
+          type={type}
+          errors={errors}
+          touched={touched?.toString()}
+          style={errors && touched ? { border: '3px solid #ff2f2f', borderRadius: '8px' } : undefined}
+        />
         {errors && touched && <ErrorMessage error={errors} />}
       </div>
     </div>
