@@ -1,0 +1,94 @@
+import { Form, Formik, FormikHelpers } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import * as Yup from 'yup';
+import classes from './SignInForm.module.scss';
+import InputField from './InputField/InputField';
+
+interface SignInValuesType {
+  email: string;
+  password: string;
+}
+
+const SignupSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('אתה חמור'),
+  password: Yup.string().required('אתה חמור'),
+});
+
+function SignInForm() {
+  const [hasError, setHasError] = useState<boolean>();
+  const navigate = useNavigate();
+
+  async function signIn(userData: SignInValuesType) {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API}/user/login`, {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error('error');
+      return await response.json();
+    } catch (e) {
+      setHasError(true);
+    }
+  }
+
+  return (
+    <div className={classes.errorContainer} style={hasError ? { marginTop: '150px' } : undefined}>
+      {hasError && (
+        <div className={classes.errorMessage}>
+          <h1>נתוני המשתמש שגויים</h1>
+        </div>
+      )}
+      <div
+        className={classes.formContainer}
+        style={hasError ? { background: 'linear-gradient(264.3deg, #FF9E2F -168.03%, #FF2F2F 100%)' } : undefined}>
+        <h1>כניסה</h1>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
+            signIn(values).then(userData => {
+              localStorage.setItem('token', userData.token);
+              setSubmitting(false);
+
+              if (userData.token) navigate('/');
+            });
+          }}>
+          {({ errors, touched }) => (
+            <Form className={classes.form}>
+              <InputField
+                errors={errors.email}
+                touched={touched.email}
+                id="email"
+                label="מייל"
+                placeholder="beetrade@email.com"
+                type="email"
+              />
+              <InputField
+                errors={errors.password}
+                touched={touched.password}
+                id="password"
+                placeholder="****************"
+                type="password"
+                label="סיסמה"
+              />
+              <Link to="/">בעיית כניסה?</Link>
+
+              <button type="submit">להמשיך</button>
+              <Link to="/">הירשם במקום</Link>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
+}
+
+export default SignInForm;

@@ -1,0 +1,48 @@
+.inputField {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #ffffff;
+
+    margin-bottom: 5px;
+  }
+
+  .inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    background: rgba(9, 4, 15, 0.3);
+    border-radius: 8px;
+    padding: 19px 14px;
+    border: unset;
+    z-index: 10;
+  }
+
+  input:focus {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px #a032fb;
+  }
+
+  input::placeholder {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 12px;
+    color: #09040f;
+    opacity: 0.8;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
