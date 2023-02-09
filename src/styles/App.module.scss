@@ -1,8 +1,9 @@
 @import '../styles/variables.scss';
 
 .app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
+
   background: $background-black;
   padding: 0 5%;
   min-height: 100vh;

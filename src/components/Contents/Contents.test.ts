@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { findActiveButton, getRightComponent, selectOneButton } from './Contents';
+import { mockSections } from '../../assets/data/mockData';
 
 describe('Contents component', () => {
   it('selects only one button', () => {
@@ -27,12 +28,22 @@ describe('Contents component', () => {
   });
 
   it('returns right component', () => {
+    const currentVideo = {
+      _id: '1',
+      name: 'שעור 1',
+      path: 'src/assets/videos/pexels-mart-production-8471384.mp4',
+      watched: true,
+      section: mockSections[0],
+      course: 'Course One',
+      description: 'פה לומדים על זה',
+    };
+
     const buttons = [
       { title: 'סקירה כללית', active: false },
       { title: 'שאילות', active: true },
       { title: 'רשימת שיעורים', active: false },
     ];
 
-    expect(getRightComponent(findActiveButton(buttons))).toEqual('שאילות');
+    expect(getRightComponent(findActiveButton(buttons), currentVideo)).toEqual('שאילות');
   });
 });

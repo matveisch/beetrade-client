@@ -10,13 +10,14 @@ interface SignInValuesType {
   password: string;
 }
 
-const SignupSchema = Yup.object().shape({
+const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('אתה חמור'),
   password: Yup.string().required('אתה חמור'),
 });
 
 function SignInForm() {
   const [hasError, setHasError] = useState<boolean>();
+  const [errorMessage, setErrorMessage] = useState<string>();
   const navigate = useNavigate();
 
   async function signIn(userData: SignInValuesType) {
@@ -29,9 +30,13 @@ function SignInForm() {
         },
       });
 
-      if (!response.ok) throw new Error('error');
+      if (!response.ok) {
+        const text = await response.json();
+        throw Error(text.message);
+      }
       return await response.json();
     } catch (e) {
+      if (e instanceof Error) setErrorMessage(e.message);
       setHasError(true);
     }
   }
@@ -40,7 +45,7 @@ function SignInForm() {
     <div className={classes.errorContainer} style={hasError ? { marginTop: '150px' } : undefined}>
       {hasError && (
         <div className={classes.errorMessage}>
-          <h1>נתוני המשתמש שגויים</h1>
+          <h1>{errorMessage}</h1>
         </div>
       )}
       <div
@@ -52,7 +57,7 @@ function SignInForm() {
             email: '',
             password: '',
           }}
-          validationSchema={SignupSchema}
+          validationSchema={SignInSchema}
           onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
             signIn(values).then(userData => {
               localStorage.setItem('token', userData.token);
@@ -82,7 +87,7 @@ function SignInForm() {
               <Link to="/">בעיית כניסה?</Link>
 
               <button type="submit">להמשיך</button>
-              <Link to="/">הירשם במקום</Link>
+              <Link to="/signup">הירשם במקום</Link>
             </Form>
           )}
         </Formik>

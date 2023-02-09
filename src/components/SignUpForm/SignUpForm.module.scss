@@ -23,12 +23,13 @@
 }
 
 .formContainer {
-  background: linear-gradient(264.3deg, #ff9e2f -168.03%, #9e2fff 100%);
+  background: linear-gradient(0deg, rgba(9, 4, 15, 0.2), rgba(9, 4, 15, 0.2)),
+    linear-gradient(34.17deg, #9e2fff 0%, #2fff9e 144.14%);
   border-radius: 8px;
   width: 310px;
   padding: 25px;
 
-  h1 {
+  .h1 {
     text-align: center;
     font-family: $font;
     font-style: normal;
@@ -38,6 +39,17 @@
     color: #ffffff;
 
     margin-bottom: 42px;
+  }
+
+  .terms {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 95.52%;
+    text-align: right;
+    letter-spacing: 0.01em;
+    color: #ffffff;
   }
 
   .form {

@@ -23,7 +23,7 @@ export function selectOneButton(button: ButtonType, buttons: ButtonType[]): Butt
 }
 
 export function findActiveButton(buttons: ButtonType[]) {
-  return buttons.find(button => button.active === true);
+  return buttons.find(button => button.active);
 }
 
 export function getRightComponent(button: ButtonType | undefined, currentVideo: VideoType) {
