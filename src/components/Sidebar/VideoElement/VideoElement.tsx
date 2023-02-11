@@ -1,5 +1,5 @@
 import classes from './VideoElement.module.scss';
-import BulletPoint from './BulletPoint/BulletPoint';
+import BulletPoint from '../../../ui/BulletPoint/BulletPoint';
 import { VideoType } from '../../../interface/types';
 
 interface VideoElementProps {
@@ -16,7 +16,7 @@ function VideoElement({ isActive, onClick, video }: VideoElementProps) {
       type="button"
       style={isActive ? { background: 'linear-gradient(0deg, #9e2fff -82.5%, #ff9e2f 193.12%)' } : undefined}>
       <div className={classes.rightContainer}>
-        <BulletPoint isChecked={video.watched} />
+        <BulletPoint isChecked={video.watched} videoId={video._id} />
         <div className={classes.description}>
           <h1>{video.name}</h1>
           <p>{video.description}</p>
