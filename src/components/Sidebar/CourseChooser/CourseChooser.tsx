@@ -8,11 +8,11 @@ import { selectSections, setSections } from '../../../features/sections/sections
 
 export function handleSectionChange(sections: SectionType[], direction: string, currentSection: SectionType) {
   let section: SectionType = currentSection;
-  const currentSectionIndex: number = sections.indexOf(currentSection);
+  const currentSectionIndex: number = sections.findIndex(item => item._id === currentSection._id);
 
-  if (direction === 'right') {
+  if (direction === 'next') {
     section = currentSectionIndex === sections.length - 1 ? sections[0] : sections[currentSectionIndex + 1];
-  } else if (direction === 'left') {
+  } else if (direction === 'prev') {
     section = currentSectionIndex === 0 ? sections[sections.length - 1] : sections[currentSectionIndex - 1];
   }
 
@@ -48,7 +48,7 @@ function CourseChooser() {
         <button
           type="button"
           onClick={() => {
-            dispatch(setCurrentSection(handleSectionChange(sections, 'right', currentSection)));
+            dispatch(setCurrentSection(handleSectionChange(sections, 'prev', currentSection)));
           }}>
           <img src={arrow} alt="" style={{ transform: 'rotate(-180deg)' }} />
         </button>
@@ -56,7 +56,7 @@ function CourseChooser() {
         <button
           type="button"
           onClick={() => {
-            dispatch(setCurrentSection(handleSectionChange(sections, 'left', currentSection)));
+            dispatch(setCurrentSection(handleSectionChange(sections, 'next', currentSection)));
           }}>
           <img src={arrow} alt="" />
         </button>
