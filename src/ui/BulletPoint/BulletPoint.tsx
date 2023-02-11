@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './BulletPoint.module.scss';
 import emptyBullet from '../../assets/images/empty-bullet.svg';
 import bulletFill from '../../assets/images/bullet-fill.svg';
@@ -6,9 +6,12 @@ import bulletFill from '../../assets/images/bullet-fill.svg';
 interface BulletPointProps {
   isChecked: boolean;
   videoId?: string;
+  frameWidth?: string;
+  fillWidth?: string;
+  onClick?: React.MouseEventHandler;
 }
 
-function BulletPoint({ isChecked, videoId }: BulletPointProps) {
+function BulletPoint({ isChecked, videoId, frameWidth, fillWidth, onClick }: BulletPointProps) {
   const [isMarked, setIsMarked] = useState(false);
 
   useEffect(() => {
@@ -35,14 +38,22 @@ function BulletPoint({ isChecked, videoId }: BulletPointProps) {
   }
 
   useEffect(() => {
-    setWatchStatus(isMarked);
+    if (videoId) setWatchStatus(isMarked);
   }, [isMarked]);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div className={classes.bulletContainer} onClick={() => setIsMarked(!isMarked)}>
+    <div
+      className={classes.bulletContainer}
+      onClick={e => {
+        setIsMarked(!isMarked);
+        if (onClick) onClick(e);
+      }}
+      style={frameWidth ? { width: frameWidth } : undefined}>
       <img src={emptyBullet} alt="" className={classes.bulletFrame} />
-      {isMarked && <img src={bulletFill} alt="" className={classes.bullet} />}
+      {isMarked && (
+        <img src={bulletFill} alt="" className={classes.bullet} style={fillWidth ? { width: fillWidth } : undefined} />
+      )}
     </div>
   );
 }

@@ -42,7 +42,7 @@ function SignInForm() {
   }
 
   return (
-    <div className={classes.errorContainer} style={hasError ? { marginTop: '150px' } : undefined}>
+    <div className={classes.errorContainer}>
       {hasError && (
         <div className={classes.errorMessage}>
           <h1>{errorMessage}</h1>

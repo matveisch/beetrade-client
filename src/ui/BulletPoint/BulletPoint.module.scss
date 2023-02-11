@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 37px;
+  cursor: pointer;
 
   .bulletFrame {
-    width: 37px;
-    height: 37px;
+    width: 100%;
   }
 
   .bullet {
     width: 23px;
-    height: 23px;
     position: absolute;
     z-index: 1;
   }

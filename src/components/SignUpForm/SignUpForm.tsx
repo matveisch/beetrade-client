@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import InputField from '../SignInForm/InputField/InputField';
 import classes from './SignUpForm.module.scss';
+import BulletPoint from '../../ui/BulletPoint/BulletPoint';
 
 function SignUpForm() {
   const [hasError, setHasError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [agreed, setAgreed] = useState(false);
   const navigate = useNavigate();
 
   interface SignUpValuesType {
@@ -53,7 +55,7 @@ function SignUpForm() {
   }
 
   return (
-    <div className={classes.errorContainer} style={hasError ? { marginTop: '150px' } : undefined}>
+    <div className={classes.errorContainer}>
       {hasError && (
         <div className={classes.errorMessage}>
           <h1 className={classes.h1}>{errorMessage}</h1>
@@ -78,10 +80,15 @@ function SignUpForm() {
             const { firstName, email, password, hasPaid, isAdmin } = values;
             const trimmedValues: SignUpValuesType = { firstName, email, password, isAdmin, hasPaid };
 
-            signUp(trimmedValues).then(userData => {
-              setSubmitting(false);
-              if (userData) navigate('/signin');
-            });
+            if (agreed) {
+              signUp(trimmedValues).then(userData => {
+                setSubmitting(false);
+                if (userData) navigate('/signin');
+              });
+            } else {
+              setHasError(true);
+              setErrorMessage('Has to agree');
+            }
           }}>
           {({ errors, touched }) => (
             <Form className={classes.form}>
@@ -117,7 +124,8 @@ function SignUpForm() {
                 type="password"
                 label="confirm password"
               />
-              <div>
+              <div className={classes.agreement}>
+                <BulletPoint isChecked={agreed} frameWidth="19px" fillWidth="11px" onClick={() => setAgreed(!agreed)} />
                 <h1 className={classes.terms}>אני מסכים לתנאי השימוש ולהצעה הציבורית</h1>
               </div>
               <button type="submit">להמשיך</button>
