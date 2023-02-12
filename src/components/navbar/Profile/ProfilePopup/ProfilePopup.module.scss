@@ -1,0 +1,70 @@
+.profilePopup {
+  background: #09040f;
+  box-shadow: 0 7px 10px rgba(255, 158, 47, 0.3), 0px -7px 22px 6px rgba(158, 47, 255, 0.1), 0px 0px 32px 8px #09040f;
+  border-radius: 8px;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 11px 20px;
+  z-index: 10;
+
+  .popupHeader {
+    display: flex;
+    align-items: center;
+
+    button {
+      height: 11px;
+    }
+
+    h1 {
+      margin: 0 26px 0 19px;
+
+      background: linear-gradient(270deg, #9e2fff 0%, #ff9e2f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      font-family: $font;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: right;
+    }
+  }
+
+  .linksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin: 31px 0 40px 0;
+
+    div:nth-child(2) {
+      margin-bottom: 43px;
+    }
+  }
+
+  .exitContainer {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+
+    h1 {
+      font-family: $font;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 95.52%;
+
+      text-align: right;
+      letter-spacing: 0.01em;
+
+      color: #d4c7de;
+
+      opacity: 0.8;
+    }
+  }
+}

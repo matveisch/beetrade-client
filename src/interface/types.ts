@@ -13,3 +13,9 @@ export interface SectionType {
   name: string;
   description: string;
 }
+
+export interface UserDataType {
+  firstName: string;
+  isAdmin: boolean;
+  hasPaid: boolean;
+}

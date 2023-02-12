@@ -1,9 +1,12 @@
+import { useDispatch } from 'react-redux';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import classes from './SignInForm.module.scss';
 import InputField from './InputField/InputField';
+import { UserDataType } from '../../interface/types';
+import { setUserSession } from '../../features/userSession/userSessionSlice';
 
 interface SignInValuesType {
   email: string;
@@ -18,6 +21,7 @@ const SignInSchema = Yup.object().shape({
 function SignInForm() {
   const [hasError, setHasError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function signIn(userData: SignInValuesType) {
@@ -61,8 +65,13 @@ function SignInForm() {
           onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
             signIn(values).then(userData => {
               localStorage.setItem('token', userData.token);
-              setSubmitting(false);
+              dispatch(setUserSession(userData.token));
 
+              const { firstName, hasPaid, isAdmin } = userData.user;
+              const user: UserDataType = { firstName, hasPaid, isAdmin };
+              localStorage.setItem('user', JSON.stringify(user));
+
+              setSubmitting(false);
               if (userData.token) navigate('/');
             });
           }}>
