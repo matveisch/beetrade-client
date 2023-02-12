@@ -1,8 +1,11 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .navbar {
-  display: flex;
-  justify-content: end;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
+  grid-column-gap: 51px;
+
   color: $font-white;
+  padding: 36px 0;
 }
