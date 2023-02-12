@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import InputField from '../SignInForm/InputField/InputField';
+import InputField from '../../ui/InputField/InputField';
 import classes from './SignUpForm.module.scss';
 import BulletPoint from '../../ui/BulletPoint/BulletPoint';
 

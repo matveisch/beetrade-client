@@ -3,6 +3,7 @@ import CurrentVideo from './pages/CurrentVideo/CurrentVideo';
 import SignIn from './pages/SingIn/SignIn';
 import Layout from './Layout';
 import SignUp from './pages/SignUp/SignUp';
+import Settings from './pages/Settings/Settings';
 
 function RouteSwitch() {
   return (
@@ -10,6 +11,7 @@ function RouteSwitch() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<CurrentVideo />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import classes from './SignInForm.module.scss';
-import InputField from './InputField/InputField';
+import InputField from '../../ui/InputField/InputField';
 import { UserDataType } from '../../interface/types';
 import { setUserSession } from '../../features/userSession/userSessionSlice';
 
