@@ -50,16 +50,12 @@ function CurrentVideo() {
   useEffect(() => {
     getVideos().then(data => {
       dispatch(setVideos(data));
-    });
-  }, []);
 
-  useEffect(() => {
-    if (videos) {
-      const video = getFirstUnseenVideo(videos);
+      const video = getFirstUnseenVideo(data);
       dispatch(setCurrentVideo(video));
       dispatch(setCurrentSection(video.section));
-    }
-  }, [videos]);
+    });
+  }, []);
 
   // todo: error handling
   if (!videos || !currentVideo || !currentSection) return <div>error</div>;
