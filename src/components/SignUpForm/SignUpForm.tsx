@@ -25,7 +25,11 @@ function SignUpForm() {
   }
 
   const SignUpSchema = Yup.object().shape({
-    firstName: Yup.string().min(1, 'Name is too short').required('required'),
+    firstName: Yup.string()
+      .min(1, 'Name is too short')
+      .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
+      .max(40)
+      .required('required'),
     email: Yup.string().email('Invalid email').required('required'),
     password: Yup.string().min(8, 'Must contain at least 8 chars').required('required'),
     confirmPassword: Yup.string()

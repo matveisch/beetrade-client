@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Field } from 'formik';
 import classes from './SettingsInput.module.scss';
-import ErrorMessage from '../../../ui/InputField/ErrorMessage/ErrorMessage';
+import ErrorMessage from '../../../ui/ErrorMessage/ErrorMessage';
 import pencilIcon from '../../../assets/images/pencilIcon.svg';
 import tickIcon from '../../../assets/images/tickIcon.svg';
 
@@ -18,20 +18,10 @@ interface SettingsInputProps {
 function SettingsInput({ errors, touched, id, placeholder, type, label, submitForm }: SettingsInputProps) {
   const [canEdit, setCanEdit] = useState(false);
 
-  function getStyle() {
-    if (canEdit && errors && touched) {
-      return { border: '3px solid #ff2f2f', borderRadius: '8px', background: '#F9EEE3' };
-    } else if (errors && touched) {
-      return { border: '3px solid #ff2f2f', borderRadius: '8px' };
-    } else if (canEdit) {
-      return { background: '#F9EEE3' };
-    }
-  }
-
   return (
     <div className={classes.settingsInput}>
       <label htmlFor={id}>{label}</label>
-      <div className={classes.inputContainer}>
+      <div className={canEdit ? classes.containerEditable : classes.inputContainer}>
         <Field
           id={id}
           name={id}
@@ -40,7 +30,7 @@ function SettingsInput({ errors, touched, id, placeholder, type, label, submitFo
           readOnly={!canEdit}
           errors={errors}
           touched={touched?.toString()}
-          style={getStyle()}
+          style={errors && touched ? { border: '3px solid #ff2f2f', borderRadius: '8px' } : undefined}
         />
         <img
           src={canEdit ? tickIcon : pencilIcon}
@@ -53,8 +43,11 @@ function SettingsInput({ errors, touched, id, placeholder, type, label, submitFo
           alt=""
           style={!canEdit ? { display: 'none' } : undefined}
           onClick={() => {
-            setCanEdit(false);
-            submitForm();
+            // todo: check if input is not empty – only then trigger submit
+            if (!errors) {
+              setCanEdit(false);
+              submitForm();
+            }
           }}
         />
         {errors && touched && <ErrorMessage error={errors} />}

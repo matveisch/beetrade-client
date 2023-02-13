@@ -1,6 +1,6 @@
 import { Field } from 'formik';
 import classes from './InputField.module.scss';
-import ErrorMessage from './ErrorMessage/ErrorMessage';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 interface InputFieldProps {
   errors: string | undefined;

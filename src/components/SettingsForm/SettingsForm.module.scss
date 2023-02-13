@@ -1,2 +1,40 @@
 .settingsForm {
+  h1 {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 95.52%;
+
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    margin-bottom: 37px;
+  }
+
+  .personalInfo {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 69px;
+  }
+
+  h2 {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: right;
+
+    color: #ffffff;
+    margin-bottom: 37px;
+  }
+
+  .socialMedia {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 }
