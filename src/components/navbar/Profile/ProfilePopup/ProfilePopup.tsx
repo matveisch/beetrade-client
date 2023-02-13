@@ -19,18 +19,22 @@ const links = [
   {
     title: 'החומרים שלי',
     image: profileIcon,
+    link: '/',
   },
   {
     title: 'הגדרות',
     image: profileIcon,
+    link: '/settings',
   },
   {
     title: 'להצטרף לרשתות חברתיות',
     image: profileIcon,
+    link: '/',
   },
   {
     title: 'להזמין חבר',
     image: profileIcon,
+    link: '/',
   },
 ];
 
@@ -62,7 +66,13 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
       </div>
       <div className={classes.linksContainer}>
         {links.map(link => (
-          <PopupOption text={link.title} img={link.image} key={link.title} />
+          <PopupOption
+            text={link.title}
+            img={link.image}
+            link={link.link}
+            onCLick={() => setOpen(false)}
+            key={link.title}
+          />
         ))}
       </div>
       <button type="button" className={classes.exitContainer} onClick={handleSignOut}>

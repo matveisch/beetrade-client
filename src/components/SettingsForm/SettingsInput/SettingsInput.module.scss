@@ -1,0 +1,62 @@
+.settingsInput {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #ffffff;
+
+    margin-bottom: 5px;
+  }
+
+  .editable {
+    input:focus {
+      background: #f9eee3;
+      border: 3px solid #a032fb;
+    }
+  }
+
+  .inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    img {
+      position: absolute;
+      z-index: 10;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      cursor: pointer;
+    }
+
+    input {
+      background: #85388f;
+      border-radius: 8px;
+      padding: 19px 14px;
+      border: unset;
+      z-index: 10;
+
+      border: 3px solid transparent;
+    }
+
+    input::placeholder {
+      font-family: $font;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 12px;
+      color: #09040f;
+      opacity: 0.8;
+    }
+
+    input:focus {
+      outline: none;
+    }
+  }
+}

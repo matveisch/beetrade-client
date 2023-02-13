@@ -1,4 +1,5 @@
 import classes from './Settings.module.scss';
+import SettingsForm from '../../components/SettingsForm/SettingsForm';
 
 function Settings() {
   return (
@@ -8,7 +9,9 @@ function Settings() {
         <button type="button">מידע אישי</button>
         <button type="button">סיסמה</button>
       </aside>
-      <div className={classes.formContainer}></div>
+      <div className={classes.formContainer}>
+        <SettingsForm />
+      </div>
     </div>
   );
 }
