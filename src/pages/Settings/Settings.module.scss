@@ -46,5 +46,17 @@
     border-image: linear-gradient(270deg, rgba(158, 47, 255, 1), rgba(255, 158, 47, 1)) 1;
     border-image-slice: 1;
     border-radius: 8px;
+
+    .buttonContainer {
+      display: flex;
+      justify-content: end;
+
+      button {
+        background: linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
+        border-radius: 8px;
+        padding: 10px 30px;
+        margin: 52px 0 0 0;
+      }
+    }
   }
 }

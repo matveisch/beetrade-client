@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './Settings.module.scss';
 import SettingsForm from '../../components/SettingsForm/SettingsForm';
 
 function Settings() {
+  const navigate = useNavigate();
+
   return (
     <div className={classes.settings}>
       <aside className={classes.sidebar}>
@@ -11,6 +14,11 @@ function Settings() {
       </aside>
       <div className={classes.formContainer}>
         <SettingsForm />
+        <div className={classes.buttonContainer}>
+          <button type="button" onClick={() => navigate(-1)}>
+            סיום
+          </button>
+        </div>
       </div>
     </div>
   );
