@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ProfilePopup.module.scss';
-import { UserDataType } from '../../../../interface/types';
 import PopupOption from './PopupOption/PopupOption';
 import { setUserSession } from '../../../../features/userSession/userSessionSlice';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import profileIcon from '../../../../assets/images/profileIcon.svg';
 import closeButton from '../../../../assets/images/closeButton.svg';
 import exitIcon from '../../../../assets/images/exitIcon.svg';
+import { selectUserData } from '../../../../features/userData/userDataSlice';
 
 interface ProfilePopupProps {
   open: boolean;
@@ -41,14 +41,11 @@ const links = [
 function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  if (!localStorage.getItem('user')) return <div>error</div>;
-
-  const userData: UserDataType = JSON.parse(localStorage.getItem('user') || '');
+  const userData = useAppSelector(selectUserData);
 
   function handleSignOut() {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('id');
     dispatch(setUserSession(undefined));
 
     setOpen(false);
@@ -61,7 +58,7 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
         <button type="button" onClick={() => setOpen(false)}>
           <img src={closeButton} alt="close-button" />
         </button>
-        <h1>{userData.firstName}</h1>
+        <h1>{userData?.firstName}</h1>
         <img src={profileIcon} alt="profile-icon" />
       </div>
       <div className={classes.linksContainer}>
