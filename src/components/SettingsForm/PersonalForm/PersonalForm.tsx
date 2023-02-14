@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import classes from '../SettingsForm.module.scss';
 import EditButton from '../EditButton/EditButton';
 import SettingsInput from '../SettingsInput/SettingsInput';
-import { getUserData } from '../../../Layout';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
 
 interface SignInValuesType {
   firstName: string;
@@ -20,32 +21,48 @@ const SignInSchema = Yup.object().shape({
     .max(40),
 });
 
+export async function updateUserData(id: string, userData: any) {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API}/user/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      const text = await response.json();
+      throw Error(text.message);
+    }
+
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function PersonalForm() {
   const [canEdit, setCanEdit] = useState(false);
-  const [firstName, setFirstName] = useState<string>('');
-  const [secondName, setSecondName] = useState<string>('');
   const id = localStorage.getItem('id');
-
-  useEffect(() => {
-    if (id !== null) {
-      getUserData(id).then(data => {
-        setFirstName(data.firstName);
-        setSecondName(data.secondName);
-      });
-    }
-  }, []);
+  const userData = useAppSelector(selectUserData);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={classes.settingsForm}>
       <Formik
         enableReinitialize
         initialValues={{
-          firstName,
-          secondName,
+          firstName: userData?.firstName || '',
+          secondName: userData?.secondName || '',
         }}
         validationSchema={SignInSchema}
         onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
-          console.log(values);
+          if (id !== null)
+            updateUserData(id, values).then(data => {
+              dispatch(setUserData(data));
+            });
           setSubmitting(false);
         }}>
         {({ errors, touched, submitForm }) => (

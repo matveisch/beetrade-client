@@ -20,6 +20,8 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+
+      margin-bottom: 59px;
     }
 
     button {
@@ -33,6 +35,10 @@
       letter-spacing: 0.01em;
 
       color: rgba(214, 198, 228, 0.76);
+    }
+
+    button:nth-child(2) {
+      margin-bottom: 21px;
     }
   }
 
