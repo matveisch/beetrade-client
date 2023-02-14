@@ -1,9 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Field } from 'formik';
 import classes from './SettingsInput.module.scss';
 import ErrorMessage from '../../../ui/ErrorMessage/ErrorMessage';
-import pencilIcon from '../../../assets/images/pencilIcon.svg';
-import tickIcon from '../../../assets/images/tickIcon.svg';
 
 interface SettingsInputProps {
   errors: string | undefined;
@@ -12,12 +10,11 @@ interface SettingsInputProps {
   placeholder: string;
   type: string;
   label: string;
-  submitForm: (() => Promise<void>) & (() => Promise<any>);
+  canEdit: boolean;
+  setCanEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SettingsInput({ errors, touched, id, placeholder, type, label, submitForm }: SettingsInputProps) {
-  const [canEdit, setCanEdit] = useState(false);
-
+function SettingsInput({ errors, touched, id, placeholder, type, label, canEdit, setCanEdit }: SettingsInputProps) {
   return (
     <div className={classes.settingsInput}>
       <label htmlFor={id}>{label}</label>
@@ -32,24 +29,7 @@ function SettingsInput({ errors, touched, id, placeholder, type, label, submitFo
           touched={touched?.toString()}
           style={errors && touched ? { border: '3px solid #ff2f2f', borderRadius: '8px' } : undefined}
         />
-        <img
-          src={canEdit ? tickIcon : pencilIcon}
-          alt=""
-          onClick={() => setCanEdit(true)}
-          style={canEdit ? { display: 'none' } : undefined}
-        />
-        <img
-          src={tickIcon}
-          alt=""
-          style={!canEdit ? { display: 'none' } : undefined}
-          onClick={() => {
-            // todo: check if input is not empty – only then trigger submit
-            if (!errors) {
-              setCanEdit(false);
-              submitForm();
-            }
-          }}
-        />
+
         {errors && touched && <ErrorMessage error={errors} />}
       </div>
     </div>

@@ -5,8 +5,8 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import classes from './SignInForm.module.scss';
 import InputField from '../../ui/InputField/InputField';
-import { UserDataType } from '../../interface/types';
 import { setUserSession } from '../../features/userSession/userSessionSlice';
+import { setUserData } from '../../features/userData/userDataSlice';
 
 interface SignInValuesType {
   email: string;
@@ -67,9 +67,13 @@ function SignInForm() {
               localStorage.setItem('token', userData.token);
               dispatch(setUserSession(userData.token));
 
-              const { firstName, hasPaid, isAdmin } = userData.user;
-              const user: UserDataType = { firstName, hasPaid, isAdmin };
-              localStorage.setItem('user', JSON.stringify(user));
+              localStorage.setItem('id', userData.user._id);
+
+              // const { firstName, hasPaid, isAdmin } = userData.user;
+              // const user = { firstName, hasPaid, isAdmin };
+              // localStorage.setItem('user', JSON.stringify(user));
+
+              dispatch(setUserData(userData.user));
 
               setSubmitting(false);
               if (userData.token) navigate('/');

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import classes from './Settings.module.scss';
-import SettingsForm from '../../components/SettingsForm/SettingsForm';
+import PersonalForm from '../../components/SettingsForm/PersonalForm/PersonalForm';
+import SocialForm from '../../components/SettingsForm/SocialForm/SocialForm';
 
 function Settings() {
   const navigate = useNavigate();
@@ -13,7 +14,8 @@ function Settings() {
         <button type="button">סיסמה</button>
       </aside>
       <div className={classes.formContainer}>
-        <SettingsForm />
+        <PersonalForm />
+        <SocialForm />
         <div className={classes.buttonContainer}>
           <button type="button" onClick={() => navigate(-1)}>
             סיום

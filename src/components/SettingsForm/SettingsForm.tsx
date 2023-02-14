@@ -1,10 +1,12 @@
 import { Form, Formik, FormikHelpers } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 import classes from './SettingsForm.module.scss';
 import { UserDataType } from '../../interface/types';
 import SettingsInput from './SettingsInput/SettingsInput';
+import EditButton from './EditButton/EditButton';
 
-interface SignInValuesType {
+export interface SignInValuesType {
   firstName: string;
   secondName: string;
   facebook: string;
@@ -35,10 +37,11 @@ const SignInSchema = Yup.object().shape({
 
 function SettingsForm() {
   const userData: UserDataType = JSON.parse(localStorage.getItem('user') || '');
+  const [canEditPersonal, setCanEditPersonal] = useState(false);
+  const [canEditSocials, setCanEditSocials] = useState(false);
 
   return (
     <div className={classes.settingsForm}>
-      <h1>הוסף מידע על עצמך</h1>
       <Formik
         initialValues={{
           firstName: userData.firstName,
@@ -54,28 +57,49 @@ function SettingsForm() {
         }}>
         {({ errors, touched, submitForm }) => (
           <Form className={classes.form}>
-            <div className={classes.personalInfo}>
-              <SettingsInput
-                errors={errors.firstName}
-                touched={touched.firstName}
-                id="firstName"
-                label="שם"
-                placeholder="לאוניד"
-                type="text"
-                submitForm={submitForm}
-              />
-              <SettingsInput
-                errors={errors.secondName}
-                touched={touched.secondName}
-                id="secondName"
-                placeholder="פריקול"
-                type="text"
-                label="שם משפחה"
-                submitForm={submitForm}
-              />
+            <div className={`${classes.personalInfo} ${classes.containers}`}>
+              <div className={classes.header}>
+                <h1>הוסף מידע על עצמך</h1>
+                <EditButton
+                  submitForm={submitForm}
+                  errors={errors}
+                  canEdit={canEditPersonal}
+                  setCanEdit={setCanEditPersonal}
+                />
+              </div>
+              <div className={classes.personalInputs}>
+                <SettingsInput
+                  errors={errors.firstName}
+                  touched={touched.firstName}
+                  id="firstName"
+                  label="שם"
+                  placeholder="לאוניד"
+                  type="text"
+                  canEdit={canEditPersonal}
+                  setCanEdit={setCanEditPersonal}
+                />
+                <SettingsInput
+                  errors={errors.secondName}
+                  touched={touched.secondName}
+                  id="secondName"
+                  placeholder="פריקול"
+                  type="text"
+                  label="שם משפחה"
+                  canEdit={canEditPersonal}
+                  setCanEdit={setCanEditPersonal}
+                />
+              </div>
             </div>
-            <h2>מדיה חברתית</h2>
-            <div className={classes.socialMedia}>
+            <div className={`${classes.socialMedia} ${classes.containers}`}>
+              <div className={classes.header}>
+                <h2>מדיה חברתית</h2>
+                <EditButton
+                  submitForm={submitForm}
+                  errors={errors}
+                  canEdit={canEditSocials}
+                  setCanEdit={setCanEditSocials}
+                />
+              </div>
               <SettingsInput
                 errors={errors.facebook}
                 touched={touched.facebook}
@@ -83,7 +107,8 @@ function SettingsForm() {
                 placeholder="עמוד הפייסבוק שלך"
                 type="text"
                 label="Facebook"
-                submitForm={submitForm}
+                canEdit={canEditSocials}
+                setCanEdit={setCanEditSocials}
               />
               <SettingsInput
                 errors={errors.telegram}
@@ -92,7 +117,8 @@ function SettingsForm() {
                 placeholder="עמוד הפייסבוק שלך"
                 type="text"
                 label="Telegram"
-                submitForm={submitForm}
+                canEdit={canEditSocials}
+                setCanEdit={setCanEditSocials}
               />
               <SettingsInput
                 errors={errors.linkedin}
@@ -101,7 +127,8 @@ function SettingsForm() {
                 placeholder="עמוד הפייסבוק שלך"
                 type="text"
                 label="LinkedIn"
-                submitForm={submitForm}
+                canEdit={canEditSocials}
+                setCanEdit={setCanEditSocials}
               />
             </div>
           </Form>

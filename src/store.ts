@@ -4,6 +4,7 @@ import currentVideoReducer from './features/currentVideo/currentVideoSlice';
 import currentSectionReducer from './features/currentSection/currentSectionSlice';
 import sectionsReducer from './features/sections/sectionsSlice';
 import userSessionReducer from './features/userSession/userSessionSlice';
+import userDataReducer from './features/userData/userDataSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     sections: sectionsReducer,
     currentSection: currentSectionReducer,
     userSession: userSessionReducer,
+    userData: userDataReducer,
   },
 });
 

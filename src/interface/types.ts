@@ -16,6 +16,11 @@ export interface SectionType {
 
 export interface UserDataType {
   firstName: string;
+  secondName?: string;
+  email: string;
   isAdmin: boolean;
   hasPaid: boolean;
+  facebook?: string;
+  telegram?: string;
+  linkedin?: string;
 }

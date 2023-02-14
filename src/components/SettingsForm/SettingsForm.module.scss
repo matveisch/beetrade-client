@@ -14,10 +14,30 @@
     margin-bottom: 37px;
   }
 
+  .containers {
+    border: 3px solid;
+    border-image: linear-gradient(270deg, rgba(158, 47, 255, 1), rgba(255, 158, 47, 1)) 1;
+    border-image-slice: 1;
+    border-radius: 8px;
+
+    padding: 33px;
+    background: linear-gradient(270deg, rgba(158, 47, 255, 0.1) 0%, rgba(255, 158, 47, 0.1) 100%);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .personalInfo {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
     margin-bottom: 69px;
+
+    .personalInputs {
+      display: flex;
+      gap: 30px;
+    }
   }
 
   h2 {
