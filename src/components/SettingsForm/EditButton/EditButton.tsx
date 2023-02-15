@@ -8,10 +8,11 @@ interface EditButtonProps {
   canEdit: boolean;
   setCanEdit: React.Dispatch<React.SetStateAction<boolean>>;
   submitForm: (() => Promise<void>) & (() => Promise<any>);
-  errors: FormikErrors<{ firstName: string; secondName: string; facebook: string; telegram: string; linkedin: string }>;
+  errors: FormikErrors<any>;
+  setErrors: (errors: FormikErrors<{ email: string; password: string }>) => void;
 }
 
-function EditButton({ canEdit, setCanEdit, submitForm, errors }: EditButtonProps) {
+function EditButton({ canEdit, setCanEdit, submitForm, errors, setErrors }: EditButtonProps) {
   return (
     <button
       type="button"
@@ -22,6 +23,7 @@ function EditButton({ canEdit, setCanEdit, submitForm, errors }: EditButtonProps
         } else {
           setCanEdit(true);
         }
+        setErrors(errors);
       }}
       className={classes.editButton}
       style={canEdit ? { background: 'linear-gradient(262.83deg, #9E2FFF -65.65%, #2FFF9E 139.08%)' } : undefined}>

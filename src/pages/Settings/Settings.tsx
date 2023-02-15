@@ -3,6 +3,7 @@ import { useState } from 'react';
 import classes from './Settings.module.scss';
 import PersonalForm from '../../components/SettingsForm/PersonalForm/PersonalForm';
 import SocialForm from '../../components/SettingsForm/SocialForm/SocialForm';
+import MailForm from '../../components/SettingsForm/MailForm/MailForm';
 
 function Settings() {
   const navigate = useNavigate();
@@ -30,7 +31,9 @@ function Settings() {
           <PersonalForm />
           <SocialForm />
         </div>
-        <div style={currentTab === 'personal' ? { display: 'none' } : undefined}></div>
+        <div style={currentTab === 'personal' ? { display: 'none' } : undefined}>
+          <MailForm />
+        </div>
         <div className={classes.buttonContainer}>
           <button type="button" onClick={() => navigate(-1)}>
             סיום

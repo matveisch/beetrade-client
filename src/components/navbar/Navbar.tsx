@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classes from './Navbar.module.scss';
 import Profile from './Profile/Profile';
 import CourseChooserNavbar from './CourseChooserNavbar/CourseChooserNavbar';
@@ -13,7 +14,9 @@ function Navbar() {
       style={!token ? { gridTemplateColumns: 'unset', justifyContent: 'end' } : undefined}>
       {token && <Profile />}
       {token && <CourseChooserNavbar />}
-      <h1>BeeTrade</h1>
+      <Link to="/">
+        <h1>BeeTrade</h1>
+      </Link>
     </div>
   );
 }
