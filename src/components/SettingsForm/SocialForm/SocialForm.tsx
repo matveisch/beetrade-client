@@ -67,7 +67,6 @@ function SettingsForm() {
                 type="text"
                 label="Facebook"
                 canEdit={canEdit}
-                setCanEdit={setCanEdit}
               />
               <SettingsInput
                 errors={errors.telegram}
@@ -77,7 +76,6 @@ function SettingsForm() {
                 type="text"
                 label="Telegram"
                 canEdit={canEdit}
-                setCanEdit={setCanEdit}
               />
               <SettingsInput
                 errors={errors.linkedin}
@@ -87,7 +85,6 @@ function SettingsForm() {
                 type="text"
                 label="LinkedIn"
                 canEdit={canEdit}
-                setCanEdit={setCanEdit}
               />
             </div>
           </Form>

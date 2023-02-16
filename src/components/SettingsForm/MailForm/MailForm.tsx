@@ -34,7 +34,7 @@ export async function updateUserEmail(id: string, userData: any) {
   }
 }
 
-function PersonalForm() {
+function MailForm() {
   const [canEdit, setCanEdit] = useState(false);
   const userData = useAppSelector(selectUserData);
   const id = localStorage.getItem('id');
@@ -82,7 +82,7 @@ function PersonalForm() {
                   setFieldTouched={setFieldTouched}
                 />
               </div>
-              <div className={classes.personalInputs}>
+              <div className={classes.personalInputs} style={{ flexDirection: 'column' }}>
                 <SettingsInput
                   errors={errors.email}
                   touched={touched.email}
@@ -91,7 +91,6 @@ function PersonalForm() {
                   placeholder=""
                   type="email"
                   canEdit={canEdit}
-                  setCanEdit={setCanEdit}
                 />
                 <SettingsInput
                   errors={errors.password}
@@ -101,7 +100,6 @@ function PersonalForm() {
                   type="password"
                   label="אימות סיסמה"
                   canEdit={canEdit}
-                  setCanEdit={setCanEdit}
                 />
               </div>
             </div>
@@ -112,4 +110,4 @@ function PersonalForm() {
   );
 }
 
-export default PersonalForm;
+export default MailForm;

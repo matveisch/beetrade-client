@@ -4,6 +4,7 @@ import classes from './Settings.module.scss';
 import PersonalForm from '../../components/SettingsForm/PersonalForm/PersonalForm';
 import SocialForm from '../../components/SettingsForm/SocialForm/SocialForm';
 import MailForm from '../../components/SettingsForm/MailForm/MailForm';
+import PasswordForm from '../../components/SettingsForm/PasswordForm/PasswordForm';
 
 function Settings() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Settings() {
         </div>
         <div style={currentTab === 'personal' ? { display: 'none' } : undefined}>
           <MailForm />
+          <PasswordForm />
         </div>
         <div className={classes.buttonContainer}>
           <button type="button" onClick={() => navigate(-1)}>

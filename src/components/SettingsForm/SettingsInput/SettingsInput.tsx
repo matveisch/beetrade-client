@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Field } from 'formik';
 import classes from './SettingsInput.module.scss';
 import ErrorMessage from '../../../ui/ErrorMessage/ErrorMessage';
@@ -11,10 +10,21 @@ interface SettingsInputProps {
   type: string;
   label: string;
   canEdit: boolean;
-  setCanEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  triggerError?: boolean;
+  customError?: string;
 }
 
-function SettingsInput({ errors, touched, id, placeholder, type, label, canEdit, setCanEdit }: SettingsInputProps) {
+function SettingsInput({
+  errors,
+  touched,
+  id,
+  placeholder,
+  type,
+  label,
+  canEdit,
+  triggerError,
+  customError,
+}: SettingsInputProps) {
   return (
     <div className={classes.settingsInput}>
       <label htmlFor={id}>{label}</label>
@@ -27,10 +37,11 @@ function SettingsInput({ errors, touched, id, placeholder, type, label, canEdit,
           readOnly={!canEdit}
           errors={errors}
           touched={touched?.toString()}
-          style={errors && touched ? { border: '3px solid #ff2f2f', borderRadius: '8px' } : undefined}
+          style={(errors && touched) || triggerError ? { border: '3px solid #ff2f2f', borderRadius: '8px' } : undefined}
         />
 
         {errors && touched && <ErrorMessage error={errors} />}
+        {triggerError && customError && <ErrorMessage error={customError} />}
       </div>
     </div>
   );

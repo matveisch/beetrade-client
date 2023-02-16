@@ -81,7 +81,6 @@ function PersonalForm() {
                   placeholder="לאוניד"
                   type="text"
                   canEdit={canEdit}
-                  setCanEdit={setCanEdit}
                 />
                 <SettingsInput
                   errors={errors.secondName}
@@ -91,7 +90,6 @@ function PersonalForm() {
                   type="text"
                   label="שם משפחה"
                   canEdit={canEdit}
-                  setCanEdit={setCanEdit}
                 />
               </div>
             </div>

@@ -18,6 +18,7 @@ function EditButton({ canEdit, setCanEdit, submitForm, errors, setFieldTouched }
       type="button"
       onClick={() => {
         if (setFieldTouched) setFieldTouched('password', true, true);
+        console.log(errors);
 
         if (canEdit && Object.keys(errors).length === 0) {
           setCanEdit(false);
