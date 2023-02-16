@@ -12,27 +12,27 @@ interface SignInValuesType {
   password: string;
 }
 
-// export async function updateUserData(id: string, userData: any) {
-//   try {
-//     const response = await fetch(`${import.meta.env.VITE_API}/user/${id}`, {
-//       method: 'PUT',
-//       body: JSON.stringify(userData),
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${localStorage.getItem('token')}`,
-//       },
-//     });
-//
-//     if (!response.ok) {
-//       const text = await response.json();
-//       throw Error(text.message);
-//     }
-//
-//     return await response.json();
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
+export async function updateUserEmail(id: string, userData: any) {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API}/user/${id}/updateEmail`, {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      const text = await response.json();
+      throw Error(text.message);
+    }
+
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 function PersonalForm() {
   const [canEdit, setCanEdit] = useState(false);
@@ -51,27 +51,25 @@ function PersonalForm() {
     <div className={classes.settingsForm}>
       <Formik
         enableReinitialize
+        validateOnBlur
         initialValues={{
           email: userData?.email || '',
           password: '',
         }}
         validationSchema={SignInSchema}
-        onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
-          if (values.email !== userData?.email && values.password.length < 1) {
-            console.log('changed email, no password');
-          } else {
-            console.log('not submit');
+        onSubmit={(values: SignInValuesType, { setSubmitting, resetForm }: FormikHelpers<SignInValuesType>) => {
+          if (values.email !== userData?.email) {
+            if (id !== null) {
+              updateUserEmail(id, values).then(data => {
+                dispatch(setUserData(data));
+                resetForm();
+              });
+            }
           }
-          console.log(values);
-
-          // if (id !== null)
-          //   updateUserData(id, values).then(data => {
-          //     dispatch(setUserData(data));
-          //   });
 
           setSubmitting(false);
         }}>
-        {({ errors, touched, submitForm, setErrors }) => (
+        {({ errors, touched, submitForm, setFieldTouched }) => (
           <Form className={classes.form}>
             <div className={`${classes.personalInfo} ${classes.containers}`}>
               <div className={classes.header}>
@@ -81,7 +79,7 @@ function PersonalForm() {
                   errors={errors}
                   canEdit={canEdit}
                   setCanEdit={setCanEdit}
-                  setErrors={setErrors}
+                  setFieldTouched={setFieldTouched}
                 />
               </div>
               <div className={classes.personalInputs}>

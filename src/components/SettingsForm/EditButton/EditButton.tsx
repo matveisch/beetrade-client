@@ -9,21 +9,22 @@ interface EditButtonProps {
   setCanEdit: React.Dispatch<React.SetStateAction<boolean>>;
   submitForm: (() => Promise<void>) & (() => Promise<any>);
   errors: FormikErrors<any>;
-  setErrors: (errors: FormikErrors<{ email: string; password: string }>) => void;
+  setFieldTouched?: (field: string, isTouched?: boolean | undefined, shouldValidate?: boolean | undefined) => void;
 }
 
-function EditButton({ canEdit, setCanEdit, submitForm, errors, setErrors }: EditButtonProps) {
+function EditButton({ canEdit, setCanEdit, submitForm, errors, setFieldTouched }: EditButtonProps) {
   return (
     <button
       type="button"
       onClick={() => {
+        if (setFieldTouched) setFieldTouched('password', true, true);
+
         if (canEdit && Object.keys(errors).length === 0) {
           setCanEdit(false);
           submitForm();
         } else {
           setCanEdit(true);
         }
-        setErrors(errors);
       }}
       className={classes.editButton}
       style={canEdit ? { background: 'linear-gradient(262.83deg, #9E2FFF -65.65%, #2FFF9E 139.08%)' } : undefined}>
