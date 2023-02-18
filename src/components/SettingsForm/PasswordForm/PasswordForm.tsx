@@ -67,10 +67,7 @@ function PasswordForm() {
           confirmPassword: '',
         }}
         validationSchema={SignInSchema}
-        onSubmit={(
-          values: SignInValuesType,
-          { setSubmitting, resetForm, setFieldError, setFieldTouched, setErrors }: FormikHelpers<SignInValuesType>,
-        ) => {
+        onSubmit={(values: SignInValuesType, { setSubmitting, resetForm }: FormikHelpers<SignInValuesType>) => {
           if (id !== null && values.oldPassword !== '' && values.newPassword !== '' && values.confirmPassword !== '') {
             updateUserPassword(id, values).then(data => {
               if (!data) {

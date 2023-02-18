@@ -1,0 +1,39 @@
+.emailConfirm {
+  padding: 25px 20px;
+  background: linear-gradient(0deg, rgba(9, 4, 15, 0.2), rgba(9, 4, 15, 0.2)),
+    linear-gradient(34.17deg, #9e2fff 0%, #2fff9e 144.14%);
+  border-radius: 8px;
+  max-width: calc(300px - 40px);
+
+  h1 {
+    margin-bottom: 53px;
+    text-align: center;
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  h2 {
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 10px;
+
+    &:nth-child(4) {
+      margin-top: 40px;
+    }
+  }
+
+  a {
+    text-decoration-line: underline;
+    color: #ff9e2f;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}

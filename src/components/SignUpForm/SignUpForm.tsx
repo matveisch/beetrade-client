@@ -6,7 +6,11 @@ import InputField from '../../ui/InputField/InputField';
 import classes from './SignUpForm.module.scss';
 import BulletPoint from '../../ui/BulletPoint/BulletPoint';
 
-function SignUpForm() {
+interface SignUpFormProps {
+  setTempEmail: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function SignUpForm({ setTempEmail }: SignUpFormProps) {
   const [hasError, setHasError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [agreed, setAgreed] = useState(false);
@@ -18,6 +22,7 @@ function SignUpForm() {
     password: string;
     isAdmin: boolean;
     hasPaid: boolean;
+    confirmed: boolean;
   }
 
   interface FormikValuesType extends SignUpValuesType {
@@ -77,17 +82,21 @@ function SignUpForm() {
             confirmPassword: '',
             hasPaid: false,
             isAdmin: false,
+            confirmed: false,
           }}
           validationSchema={SignUpSchema}
           onSubmit={(values: FormikValuesType, { setSubmitting }: FormikHelpers<FormikValuesType>) => {
             // getting read of confirmPassword key
-            const { firstName, email, password, hasPaid, isAdmin } = values;
-            const trimmedValues: SignUpValuesType = { firstName, email, password, isAdmin, hasPaid };
+            const { firstName, email, password, hasPaid, isAdmin, confirmed } = values;
+            const trimmedValues: SignUpValuesType = { firstName, email, password, isAdmin, hasPaid, confirmed };
 
             if (agreed) {
               signUp(trimmedValues).then(userData => {
                 setSubmitting(false);
-                if (userData) navigate('/signin');
+                if (userData) {
+                  setTempEmail(trimmedValues.email);
+                  // navigate('/signin');
+                }
               });
             } else {
               setHasError(true);
