@@ -8,10 +8,10 @@ function Profile() {
 
   return (
     <div className={classes.profile}>
-      <div className={classes.blockContainer} onClick={() => setOpenPopup(true)}>
+      <button type="button" className={classes.blockContainer} onClick={() => setOpenPopup(true)}>
         <h1>פרופיל</h1>
         <img src={profileIcon} alt="profile-icon" />
-      </div>
+      </button>
       <ProfilePopup open={openPopup} setOpen={setOpenPopup} />
     </div>
   );

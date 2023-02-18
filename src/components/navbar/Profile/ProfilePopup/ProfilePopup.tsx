@@ -6,6 +6,10 @@ import { setUserSession } from '../../../../features/userSession/userSessionSlic
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import profileIcon from '../../../../assets/images/profileIcon.svg';
+import studyIcon from '../../../../assets/images/studyIcon.svg';
+import settingsIcon from '../../../../assets/images/settingsIcon.svg';
+import telegramIcon from '../../../../assets/images/telegramIcon.svg';
+import friendIcon from '../../../../assets/images/friendIcon.svg';
 import closeButton from '../../../../assets/images/closeButton.svg';
 import exitIcon from '../../../../assets/images/exitIcon.svg';
 import { selectUserData } from '../../../../features/userData/userDataSlice';
@@ -18,22 +22,22 @@ interface ProfilePopupProps {
 const links = [
   {
     title: 'החומרים שלי',
-    image: profileIcon,
+    image: studyIcon,
     link: '/',
   },
   {
     title: 'הגדרות',
-    image: profileIcon,
+    image: settingsIcon,
     link: '/settings',
   },
   {
     title: 'להצטרף לרשתות חברתיות',
-    image: profileIcon,
+    image: telegramIcon,
     link: '/',
   },
   {
     title: 'להזמין חבר',
-    image: profileIcon,
+    image: friendIcon,
     link: '/',
   },
 ];
