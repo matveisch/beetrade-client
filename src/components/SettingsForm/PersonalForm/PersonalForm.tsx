@@ -59,7 +59,7 @@ function PersonalForm() {
         }}
         validationSchema={SignInSchema}
         onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
-          if (id !== null)
+          if (id !== null && (values.firstName !== userData?.firstName || values.secondName !== userData?.secondName))
             updateUserData(id, values).then(data => {
               dispatch(setUserData(data));
             });

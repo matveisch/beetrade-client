@@ -46,7 +46,12 @@ function SettingsForm() {
         }}
         validationSchema={SignInSchema}
         onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
-          if (id !== null)
+          if (
+            id !== null &&
+            (values.facebook !== userData?.facebook ||
+              values.telegram !== userData?.telegram ||
+              values.linkedin !== userData?.linkedin)
+          )
             updateUserData(id, values).then(data => {
               dispatch(setUserData(data));
             });

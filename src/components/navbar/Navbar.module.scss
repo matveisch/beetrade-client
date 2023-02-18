@@ -8,4 +8,10 @@
 
   color: $font-white;
   padding: 36px 0;
+
+  .logo {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
 }
