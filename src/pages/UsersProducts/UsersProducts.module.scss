@@ -1,5 +1,12 @@
 .usersProducts {
   h2 {
+    background: linear-gradient(270deg, #9e2fff 0%, #ff9e2f 100%);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    width: fit-content;
+  }
+
+  h3 {
     font-family: $font;
     font-style: normal;
     font-weight: 600;

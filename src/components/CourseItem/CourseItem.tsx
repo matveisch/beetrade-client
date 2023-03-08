@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classes from './CourseItem.module.scss';
 import { CourseType } from '../../interface/types';
 import ProgressBar from '../Sidebar/ProgressBar/ProgressBar';
@@ -17,7 +18,9 @@ function CourseItem({ course }: CourseItemProps) {
       <div className={classes.courseData}>
         <h3>{course.name}</h3>
         <ProgressBar videos={videos.filter(video => video.course?.name === course.name)} />
-        <button type="button">לצפיה</button>
+        <button type="button">
+          <Link to="/">לצפיה</Link>
+        </button>
       </div>
       <img src="" alt="" />
     </div>
