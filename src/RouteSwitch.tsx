@@ -4,6 +4,7 @@ import SignIn from './pages/SingIn/SignIn';
 import Layout from './Layout';
 import SignUp from './pages/SignUp/SignUp';
 import Settings from './pages/Settings/Settings';
+import UsersProducts from './pages/UsersProducts/UsersProducts';
 
 function RouteSwitch() {
   return (
@@ -11,6 +12,7 @@ function RouteSwitch() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<CurrentVideo />} />
+          <Route path="/products" element={<UsersProducts />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />

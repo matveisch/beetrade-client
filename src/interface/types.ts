@@ -4,7 +4,12 @@ export interface VideoType {
   path: string;
   watched: boolean;
   section: SectionType;
-  course: string;
+  course: CourseType;
+  description: string;
+}
+
+export interface CourseType {
+  name: string;
   description: string;
 }
 
@@ -19,7 +24,6 @@ export interface UserDataType {
   secondName?: string;
   email: string;
   isAdmin: boolean;
-  hasPaid: boolean;
   facebook?: string;
   telegram?: string;
   linkedin?: string;
