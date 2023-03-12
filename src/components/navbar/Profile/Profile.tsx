@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import classes from './Profile.module.scss';
-import profileIcon from '../../../assets/images/profileIcon.svg';
+import profileIcon from '../../../assets/images/profileImage.svg';
 import ProfilePopup from './ProfilePopup/ProfilePopup';
 
 function Profile() {
