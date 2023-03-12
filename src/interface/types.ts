@@ -11,6 +11,7 @@ export interface VideoType {
 export interface CourseType {
   name: string;
   description: string;
+  _id: string;
 }
 
 export interface SectionType {
@@ -23,7 +24,12 @@ export interface UserDataType {
   firstName: string;
   secondName?: string;
   email: string;
+  password: string;
+
   isAdmin: boolean;
+  confirmed: boolean;
+  courses: CourseType[];
+
   facebook?: string;
   telegram?: string;
   linkedin?: string;

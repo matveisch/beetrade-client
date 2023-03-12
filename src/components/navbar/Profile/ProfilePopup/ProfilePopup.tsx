@@ -5,7 +5,7 @@ import PopupOption from './PopupOption/PopupOption';
 import { setUserSession } from '../../../../features/userSession/userSessionSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
-import profileIcon from '../../../../assets/images/profileIcon.svg';
+import profileIcon from '../../../../assets/images/profileImage.svg';
 import studyIcon from '../../../../assets/images/studyIcon.svg';
 import settingsIcon from '../../../../assets/images/settingsIcon.svg';
 import telegramIcon from '../../../../assets/images/telegramIcon.svg';
@@ -23,7 +23,7 @@ const links = [
   {
     title: 'החומרים שלי',
     image: studyIcon,
-    link: '/',
+    link: '/products',
   },
   {
     title: 'הגדרות',

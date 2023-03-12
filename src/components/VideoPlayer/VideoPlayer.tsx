@@ -23,12 +23,14 @@ function VideoPlayer() {
         controls={videoIsPlaying}
         controlsList="nodownload"
         poster={videoThumbnail}
+        playsInline
         ref={currentVideoRef}
+        src={`${import.meta.env.VITE_API}/videos/${currentVideo?._id}?auth_token=${localStorage.getItem('token')}`}
         onClick={() => {
           setVideoIsPlaying(true);
         }}>
         <source
-          src={`${import.meta.env.VITE_API}/videos/${currentVideo?._id}?auth_token=${localStorage.getItem('token')}`}
+          // src={`${import.meta.env.VITE_API}/videos/${currentVideo?._id}?auth_token=${localStorage.getItem('token')}`}
           type="video/mp4"
         />
       </video>
