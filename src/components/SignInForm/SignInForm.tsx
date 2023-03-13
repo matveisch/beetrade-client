@@ -64,6 +64,7 @@ function SignInForm() {
           validationSchema={SignInSchema}
           onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
             signIn(values).then(userData => {
+              console.log(userData);
               localStorage.setItem('token', userData.token);
               dispatch(setUserSession(userData.token));
 

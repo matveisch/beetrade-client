@@ -25,6 +25,7 @@ export interface UserDataType {
   secondName?: string;
   email: string;
   password: string;
+  _id: string;
 
   isAdmin: boolean;
   confirmed: boolean;

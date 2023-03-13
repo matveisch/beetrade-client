@@ -38,10 +38,30 @@ function Layout() {
   const navigate = useNavigate();
   const userData = useAppSelector(selectUserData);
 
+  async function setLogStatus() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API}/user/${userData?._id}/handleLogout`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        const text = await response.json();
+        throw Error(text.message);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   function handleSignOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     dispatch(setUserSession(undefined));
+    setLogStatus();
     navigate('/signin');
   }
 
@@ -82,15 +102,15 @@ function Layout() {
   }, []);
 
   // prevent right click
-  // useEffect(() => {
-  //   const handleContextmenu = (e: { preventDefault: () => void }) => {
-  //     e.preventDefault();
-  //   };
-  //   document.addEventListener('contextmenu', handleContextmenu);
-  //   return function cleanup() {
-  //     document.removeEventListener('contextmenu', handleContextmenu);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleContextmenu = (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+    };
+    document.addEventListener('contextmenu', handleContextmenu);
+    return function cleanup() {
+      document.removeEventListener('contextmenu', handleContextmenu);
+    };
+  }, []);
 
   return (
     <div className={classes.app}>
