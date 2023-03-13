@@ -82,6 +82,10 @@ function Layout() {
   }
 
   useEffect(() => {
+    if (!userData) navigate('/signin');
+  }, []);
+
+  useEffect(() => {
     getVideos().then(data => {
       dispatch(setVideos(data));
 
