@@ -1,14 +1,21 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './Settings.module.scss';
 import PersonalForm from '../../components/SettingsForm/PersonalForm/PersonalForm';
 import SocialForm from '../../components/SettingsForm/SocialForm/SocialForm';
 import MailForm from '../../components/SettingsForm/MailForm/MailForm';
 import PasswordForm from '../../components/SettingsForm/PasswordForm/PasswordForm';
+import { selectUserData } from '../../features/userData/userDataSlice';
+import { useAppSelector } from '../../hooks';
 
 function Settings() {
   const navigate = useNavigate();
+  const userData = useAppSelector(selectUserData);
   const [currentTab, setCurrentTab] = useState('personal'); // or security
+
+  useEffect(() => {
+    if (!userData) navigate('/signin');
+  }, []);
 
   return (
     <div className={classes.settings}>

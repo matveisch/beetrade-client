@@ -3,9 +3,9 @@ import classes from './SectionElement.module.scss';
 import playButtonBackground from '../../../../assets/images/play-button-back.svg';
 import playButton from '../../../../assets/images/play-button.svg';
 import { SectionType } from '../../../../interface/types';
-import { mockVideos } from '../../../../assets/data/mockData';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { setCurrentSection } from '../../../../features/currentSection/currentSectionSlice';
+import { selectVideos } from '../../../../features/videos/videosSlice';
 
 interface SectionElementProps {
   section: SectionType;
@@ -14,6 +14,7 @@ interface SectionElementProps {
 function SectionElement({ section }: SectionElementProps) {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useAppDispatch();
+  const videos = useAppSelector(selectVideos);
 
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -31,8 +32,8 @@ function SectionElement({ section }: SectionElementProps) {
       </div>
       {isHovered && (
         <ul className={classes.sectionLessons}>
-          {mockVideos
-            .filter(video => video.section === section)
+          {videos
+            ?.filter(video => video.section === section)
             .map(video => {
               return (
                 <li key={video._id} className={classes.video}>

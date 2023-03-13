@@ -1,10 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import classes from './UsersProducts.module.scss';
 import CourseItem from '../../components/CourseItem/CourseItem';
 import { useAppSelector } from '../../hooks';
 import { selectUserData } from '../../features/userData/userDataSlice';
 
 function UsersProducts() {
+  const navigate = useNavigate();
   const userData = useAppSelector(selectUserData);
+
+  useEffect(() => {
+    if (!userData) navigate('/signin');
+  }, []);
 
   return (
     <div className={classes.usersProducts}>
