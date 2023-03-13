@@ -82,10 +82,6 @@ function Layout() {
   }
 
   useEffect(() => {
-    if (!userData) navigate('/signin');
-  }, []);
-
-  useEffect(() => {
     getVideos().then(data => {
       dispatch(setVideos(data));
 
@@ -103,6 +99,10 @@ function Layout() {
         dispatch(setUserData(data));
       });
     }
+  }, []);
+
+  useEffect(() => {
+    if (token === null) navigate('/signin');
   }, []);
 
   // prevent right click

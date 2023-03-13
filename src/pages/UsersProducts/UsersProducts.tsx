@@ -8,9 +8,10 @@ import { selectUserData } from '../../features/userData/userDataSlice';
 function UsersProducts() {
   const navigate = useNavigate();
   const userData = useAppSelector(selectUserData);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (!userData) navigate('/signin');
+    if (token === null) navigate('/signin');
   }, []);
 
   return (

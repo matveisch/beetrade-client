@@ -5,16 +5,14 @@ import PersonalForm from '../../components/SettingsForm/PersonalForm/PersonalFor
 import SocialForm from '../../components/SettingsForm/SocialForm/SocialForm';
 import MailForm from '../../components/SettingsForm/MailForm/MailForm';
 import PasswordForm from '../../components/SettingsForm/PasswordForm/PasswordForm';
-import { selectUserData } from '../../features/userData/userDataSlice';
-import { useAppSelector } from '../../hooks';
 
 function Settings() {
   const navigate = useNavigate();
-  const userData = useAppSelector(selectUserData);
   const [currentTab, setCurrentTab] = useState('personal'); // or security
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (!userData) navigate('/signin');
+    if (token === null) navigate('/signin');
   }, []);
 
   return (
