@@ -8,6 +8,7 @@ import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlic
 function VideoPlayer() {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
   const currentVideoRef = useRef<HTMLVideoElement>(null);
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
 
   const currentVideo = useAppSelector(selectCurrentVideo);
 
@@ -15,6 +16,26 @@ function VideoPlayer() {
     setVideoIsPlaying(false);
     currentVideoRef.current?.load();
   }, [currentVideo]);
+
+  async function getVideoSrc() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API}/videos/123`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const data = await response.json();
+      setVideoSrc(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getVideoSrc();
+  }, []);
 
   return (
     <div className={classes.videoContainer}>
@@ -25,7 +46,8 @@ function VideoPlayer() {
         poster={videoThumbnail}
         playsInline
         ref={currentVideoRef}
-        src={`${import.meta.env.VITE_API}/videos/${currentVideo?._id}?auth_token=${localStorage.getItem('token')}`}
+        // src="https://d1trlqnyyov9mm.cloudfront.net/pexels-mart-production-8471384.mp4"
+        src={videoSrc}
         onClick={() => {
           setVideoIsPlaying(true);
         }}>

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import classes from './styles/App.module.scss';
-import { useAppDispatch } from './hooks';
+import { useAppDispatch, useAppSelector } from './hooks';
 import { setUserSession } from './features/userSession/userSessionSlice';
-import { setUserData } from './features/userData/userDataSlice';
+import { selectUserData, setUserData } from './features/userData/userDataSlice';
 import { setVideos } from './features/videos/videosSlice';
 import { setCurrentVideo } from './features/currentVideo/currentVideoSlice';
 import { setCurrentSection } from './features/currentSection/currentSectionSlice';
@@ -36,6 +36,7 @@ function Layout() {
   const token = localStorage.getItem('token');
   const id = localStorage.getItem('id');
   const navigate = useNavigate();
+  const userData = useAppSelector(selectUserData);
 
   function handleSignOut() {
     localStorage.removeItem('token');
@@ -68,18 +69,28 @@ function Layout() {
       dispatch(setCurrentVideo(video));
       dispatch(setCurrentSection(video.section));
     });
-  }, []);
+  }, [userData]);
 
   if (token !== null) dispatch(setUserSession(token || undefined));
 
   useEffect(() => {
     if (token !== null && id !== null) {
       getUserData(id).then(data => {
-        console.log(data);
         dispatch(setUserData(data));
       });
     }
   }, []);
+
+  // prevent right click
+  // useEffect(() => {
+  //   const handleContextmenu = (e: { preventDefault: () => void }) => {
+  //     e.preventDefault();
+  //   };
+  //   document.addEventListener('contextmenu', handleContextmenu);
+  //   return function cleanup() {
+  //     document.removeEventListener('contextmenu', handleContextmenu);
+  //   };
+  // }, []);
 
   return (
     <div className={classes.app}>
