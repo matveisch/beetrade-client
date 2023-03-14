@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
 import classes from './styles/App.module.scss';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { selectUserData, setUserData } from './features/userData/userDataSlice';
@@ -9,6 +8,7 @@ import { setCurrentVideo } from './features/currentVideo/currentVideoSlice';
 import { setCurrentSection } from './features/currentSection/currentSectionSlice';
 import { getFirstUnseenVideo } from './pages/CurrentVideo/CurrentVideo';
 import { UserDataType } from './interface/types';
+import Navbar from './components/Navbar/Navbar';
 
 export async function getUserData(id: string) {
   try {
