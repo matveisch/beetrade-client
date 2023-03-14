@@ -9,9 +9,20 @@
   color: $font-white;
   padding: 36px 0;
 
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr auto;
+    grid-column-gap: unset;
+  }
+
   .logo {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+
+    h1 {
+      @media (max-width: 768px) {
+        font-size: 27px;
+      }
+    }
   }
 }
