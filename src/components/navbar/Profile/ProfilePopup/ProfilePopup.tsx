@@ -12,7 +12,7 @@ import telegramIcon from '../../../../assets/images/telegramIcon.svg';
 import friendIcon from '../../../../assets/images/friendIcon.svg';
 import closeButton from '../../../../assets/images/closeButton.svg';
 import exitIcon from '../../../../assets/images/exitIcon.svg';
-import { selectUserData } from '../../../../features/userData/userDataSlice';
+import { selectUserData, setUserData } from '../../../../features/userData/userDataSlice';
 import { setLogStatus } from '../../../../Layout';
 
 interface ProfilePopupProps {
@@ -53,6 +53,7 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     dispatch(setUserSession(undefined));
+    dispatch(setUserData(undefined));
     setOpen(false);
     navigate('/signin');
   }
