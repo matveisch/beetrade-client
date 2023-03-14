@@ -13,13 +13,14 @@
   .swiper {
     .buttons {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       margin-bottom: 20px;
+      margin-top: 20px;
 
       button {
         color: white;
         height: 51px;
-        padding: 16px 24px;
+        padding: 5% 10%;
         position: relative;
 
         font-family: 'Arimo', sans-serif;
@@ -28,6 +29,14 @@
         font-size: 20px;
         line-height: 95.52%;
         letter-spacing: 0.01em;
+
+        @media (max-width: 500px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 500px) {
+          padding: 0;
+        }
 
         .afterElement {
           content: '';

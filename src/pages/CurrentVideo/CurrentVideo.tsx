@@ -9,6 +9,8 @@ import { useAppSelector } from '../../hooks';
 import { selectVideos } from '../../features/videos/videosSlice';
 import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
 import { selectCurrentSection } from '../../features/currentSection/currentSectionSlice';
+import Description from '../../components/Contents/Description/Description';
+import SectionsGrid from '../../components/Contents/SectionsGrid/SectionsGrid';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos?.find(video => !video.watched);
@@ -21,7 +23,7 @@ function CurrentVideo() {
   const currentVideo = useAppSelector(selectCurrentVideo);
   const currentSection = useAppSelector(selectCurrentSection);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [currentView, setCurrentView] = useState<'contents' | 'sidebar'>('contents');
+  const [currentView, setCurrentView] = useState<'sections' | 'sidebar' | 'description'>('sidebar');
 
   useEffect(() => {
     function handleResize() {
@@ -52,20 +54,28 @@ function CurrentVideo() {
       <VideoPlayer />
       <div className={classes.swiper}>
         <div className={classes.buttons}>
-          <button type="button" onClick={() => setCurrentView('contents')}>
-            Contents
-            <div
-              className={classes.afterElement}
-              style={currentView !== 'contents' ? { display: 'none' } : undefined}
-            />
-          </button>
           <button type="button" onClick={() => setCurrentView('sidebar')}>
             Sidebar
             <div className={classes.afterElement} style={currentView !== 'sidebar' ? { display: 'none' } : undefined} />
           </button>
+          <button type="button" onClick={() => setCurrentView('description')}>
+            Description
+            <div
+              className={classes.afterElement}
+              style={currentView !== 'description' ? { display: 'none' } : undefined}
+            />
+          </button>
+          <button type="button" onClick={() => setCurrentView('sections')}>
+            Sections
+            <div
+              className={classes.afterElement}
+              style={currentView !== 'sections' ? { display: 'none' } : undefined}
+            />
+          </button>
         </div>
       </div>
-      {currentView === 'contents' && <Contents />}
+      {currentView === 'sections' && <SectionsGrid />}
+      {currentView === 'description' && <Description body={currentVideo.description} />}
       {currentView === 'sidebar' && (
         <Sidebar
           currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
