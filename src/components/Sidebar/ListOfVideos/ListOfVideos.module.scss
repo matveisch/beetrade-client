@@ -4,5 +4,13 @@
   flex-direction: column;
   gap: 15px;
   max-height: 500px;
+
+  // scrollbar
   overflow: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
