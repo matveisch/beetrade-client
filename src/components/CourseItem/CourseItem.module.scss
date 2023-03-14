@@ -6,9 +6,18 @@
   display: flex;
   gap: 30px;
 
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
   img {
     width: 206px;
     height: 182px;
+
+    @media (max-width: 525px) {
+      width: 103px;
+      height: 91px;
+    }
   }
 
   .courseData {
@@ -23,6 +32,10 @@
       color: #deceec;
 
       margin-bottom: 24px;
+
+      @media (max-width: 768px) {
+        font-size: clamp(25px, 8vw, 32px);
+      }
     }
 
     button {
