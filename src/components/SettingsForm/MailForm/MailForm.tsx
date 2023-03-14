@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import classes from '../SettingsForm.module.scss';
@@ -6,6 +6,7 @@ import EditButton from '../EditButton/EditButton';
 import SettingsInput from '../SettingsInput/SettingsInput';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
+import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
 
 interface SignInValuesType {
   email: string;
@@ -39,6 +40,7 @@ function MailForm() {
   const userData = useAppSelector(selectUserData);
   const id = localStorage.getItem('id');
   const dispatch = useAppDispatch();
+  const { windowWidth } = useContext(WindowWidthContext) as WindowWidthContextType;
 
   const SignInSchema = Yup.object().shape({
     email: Yup.string().email().required(),
@@ -74,13 +76,15 @@ function MailForm() {
             <div className={`${classes.personalInfo} ${classes.containers}`}>
               <div className={classes.header}>
                 <h1>שינוי מייל</h1>
-                <EditButton
-                  submitForm={submitForm}
-                  errors={errors}
-                  canEdit={canEdit}
-                  setCanEdit={setCanEdit}
-                  setFieldTouched={setFieldTouched}
-                />
+                {windowWidth > 768 && (
+                  <EditButton
+                    submitForm={submitForm}
+                    errors={errors}
+                    canEdit={canEdit}
+                    setCanEdit={setCanEdit}
+                    setFieldTouched={setFieldTouched}
+                  />
+                )}
               </div>
               <div className={classes.personalInputs} style={{ flexDirection: 'column' }}>
                 <SettingsInput
@@ -101,6 +105,15 @@ function MailForm() {
                   label="אימות סיסמה"
                   canEdit={canEdit}
                 />
+                {windowWidth < 768 && (
+                  <EditButton
+                    submitForm={submitForm}
+                    errors={errors}
+                    canEdit={canEdit}
+                    setCanEdit={setCanEdit}
+                    setFieldTouched={setFieldTouched}
+                  />
+                )}
               </div>
             </div>
           </Form>

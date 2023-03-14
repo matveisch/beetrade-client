@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import classes from '../SettingsForm.module.scss';
 import EditButton from '../EditButton/EditButton';
 import SettingsInput from '../SettingsInput/SettingsInput';
+import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
 
 interface SignInValuesType {
   oldPassword: string;
@@ -38,6 +39,7 @@ function PasswordForm() {
   const [triggerError, setTriggerError] = useState(false);
   const [customError, setCustomError] = useState('');
   const id = localStorage.getItem('id');
+  const { windowWidth } = useContext(WindowWidthContext) as WindowWidthContextType;
 
   const SignInSchema = Yup.object().shape({
     oldPassword: Yup.string()
@@ -86,7 +88,9 @@ function PasswordForm() {
             <div className={`${classes.personalInfo} ${classes.containers}`}>
               <div className={classes.header}>
                 <h1>סיסמה</h1>
-                <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+                {windowWidth > 768 && (
+                  <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+                )}
               </div>
               <div className={classes.personalInputs} style={{ flexDirection: 'column' }}>
                 <SettingsInput
@@ -118,6 +122,9 @@ function PasswordForm() {
                   label="אימות סיסמה חדשה"
                   canEdit={canEdit}
                 />
+                {windowWidth < 768 && (
+                  <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+                )}
               </div>
             </div>
           </Form>

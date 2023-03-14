@@ -3,7 +3,7 @@
     font-family: $font;
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
+    font-size: clamp(25px, 8vw, 32px);
     line-height: 95.52%;
 
     text-align: center;
@@ -37,6 +37,10 @@
     .personalInputs {
       display: flex;
       gap: 30px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
   }
 

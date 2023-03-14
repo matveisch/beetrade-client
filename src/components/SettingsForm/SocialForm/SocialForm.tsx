@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from 'formik';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as Yup from 'yup';
 import classes from '../SettingsForm.module.scss';
 import EditButton from '../EditButton/EditButton';
@@ -7,6 +7,7 @@ import SettingsInput from '../SettingsInput/SettingsInput';
 import { updateUserData } from '../PersonalForm/PersonalForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
+import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
 
 export interface SignInValuesType {
   facebook: string;
@@ -34,6 +35,7 @@ function SettingsForm() {
   const id = localStorage.getItem('id');
   const dispatch = useAppDispatch();
   const userData = useAppSelector(selectUserData);
+  const { windowWidth } = useContext(WindowWidthContext) as WindowWidthContextType;
 
   return (
     <div className={classes.settingsForm}>
@@ -62,7 +64,9 @@ function SettingsForm() {
             <div className={`${classes.socialMedia} ${classes.containers}`}>
               <div className={classes.header}>
                 <h1>מדיה חברתית</h1>
-                <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+                {windowWidth > 768 && (
+                  <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+                )}
               </div>
               <SettingsInput
                 errors={errors.facebook}
@@ -91,6 +95,9 @@ function SettingsForm() {
                 label="LinkedIn"
                 canEdit={canEdit}
               />
+              {windowWidth < 768 && (
+                <EditButton submitForm={submitForm} errors={errors} canEdit={canEdit} setCanEdit={setCanEdit} />
+              )}
             </div>
           </Form>
         )}
