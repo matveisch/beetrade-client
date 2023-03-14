@@ -9,6 +9,7 @@ import { setVideos } from './features/videos/videosSlice';
 import { setCurrentVideo } from './features/currentVideo/currentVideoSlice';
 import { setCurrentSection } from './features/currentSection/currentSectionSlice';
 import { getFirstUnseenVideo } from './pages/CurrentVideo/CurrentVideo';
+import { UserDataType } from './interface/types';
 
 export async function getUserData(id: string) {
   try {
@@ -31,6 +32,25 @@ export async function getUserData(id: string) {
   }
 }
 
+export async function setLogStatus(userData: UserDataType) {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API}/user/${userData?._id}/handleLogout`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      const text = await response.json();
+      throw Error(text.message);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function Layout() {
   const dispatch = useAppDispatch();
   const token = localStorage.getItem('token');
@@ -38,30 +58,11 @@ function Layout() {
   const navigate = useNavigate();
   const userData = useAppSelector(selectUserData);
 
-  async function setLogStatus() {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API}/user/${userData?._id}/handleLogout`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      if (!response.ok) {
-        const text = await response.json();
-        throw Error(text.message);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   function handleSignOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     dispatch(setUserSession(undefined));
-    setLogStatus();
+    if (userData) setLogStatus(userData);
     navigate('/signin');
   }
 

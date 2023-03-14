@@ -13,6 +13,7 @@ import friendIcon from '../../../../assets/images/friendIcon.svg';
 import closeButton from '../../../../assets/images/closeButton.svg';
 import exitIcon from '../../../../assets/images/exitIcon.svg';
 import { selectUserData } from '../../../../features/userData/userDataSlice';
+import { setLogStatus } from '../../../../Layout';
 
 interface ProfilePopupProps {
   open: boolean;
@@ -48,10 +49,10 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
   const userData = useAppSelector(selectUserData);
 
   function handleSignOut() {
+    if (userData) setLogStatus(userData);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     dispatch(setUserSession(undefined));
-
     setOpen(false);
     navigate('/signin');
   }
