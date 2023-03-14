@@ -1,3 +1,7 @@
 .sideBar {
   width: 310px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }

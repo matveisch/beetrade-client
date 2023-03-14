@@ -1,6 +1,10 @@
 .contents {
   margin-top: 45px;
 
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
+
   .navbar {
     margin-bottom: 45px;
   }
