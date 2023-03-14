@@ -92,8 +92,6 @@ function Layout() {
     });
   }, [userData]);
 
-  if (token !== null) dispatch(setUserSession(token || undefined));
-
   useEffect(() => {
     if (token !== null && id !== null) {
       getUserData(id).then(data => {
@@ -119,9 +117,7 @@ function Layout() {
 
   return (
     <div className={classes.app}>
-      <header>
-        <Navbar />
-      </header>
+      <header>{userData && <Navbar />}</header>
       <main className={classes.main}>
         <Outlet />
       </main>
