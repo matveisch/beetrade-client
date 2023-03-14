@@ -3,7 +3,6 @@ import videosReducer from './features/videos/videosSlice';
 import currentVideoReducer from './features/currentVideo/currentVideoSlice';
 import currentSectionReducer from './features/currentSection/currentSectionSlice';
 import sectionsReducer from './features/sections/sectionsSlice';
-import userSessionReducer from './features/userSession/userSessionSlice';
 import userDataReducer from './features/userData/userDataSlice';
 
 export const store = configureStore({
@@ -12,7 +11,6 @@ export const store = configureStore({
     currentVideo: currentVideoReducer,
     sections: sectionsReducer,
     currentSection: currentSectionReducer,
-    userSession: userSessionReducer,
     userData: userDataReducer,
   },
 });

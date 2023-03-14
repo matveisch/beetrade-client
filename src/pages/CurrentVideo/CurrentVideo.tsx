@@ -9,7 +9,7 @@ import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlic
 import { selectCurrentSection } from '../../features/currentSection/currentSectionSlice';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
-  const firstUnseen = videos.find(video => !video.watched);
+  const firstUnseen = videos?.find(video => !video.watched);
 
   return firstUnseen !== undefined ? firstUnseen : videos[0];
 }

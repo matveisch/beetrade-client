@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import classes from './styles/App.module.scss';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { setUserSession } from './features/userSession/userSessionSlice';
 import { selectUserData, setUserData } from './features/userData/userDataSlice';
 import { setVideos } from './features/videos/videosSlice';
 import { setCurrentVideo } from './features/currentVideo/currentVideoSlice';
@@ -61,7 +60,7 @@ function Layout() {
   function handleSignOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    dispatch(setUserSession(undefined));
+    dispatch(setUserData(undefined));
     if (userData) setLogStatus(userData);
     navigate('/signin');
   }
@@ -83,13 +82,15 @@ function Layout() {
   }
 
   useEffect(() => {
-    getVideos().then(data => {
-      dispatch(setVideos(data));
+    if (userData) {
+      getVideos().then(data => {
+        dispatch(setVideos(data));
 
-      const video = getFirstUnseenVideo(data);
-      dispatch(setCurrentVideo(video));
-      dispatch(setCurrentSection(video.section));
-    });
+        const video = getFirstUnseenVideo(data);
+        dispatch(setCurrentVideo(video));
+        dispatch(setCurrentSection(video.section));
+      });
+    }
   }, [userData]);
 
   useEffect(() => {

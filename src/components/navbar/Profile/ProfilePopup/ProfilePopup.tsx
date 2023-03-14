@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './ProfilePopup.module.scss';
 import PopupOption from './PopupOption/PopupOption';
-import { setUserSession } from '../../../../features/userSession/userSessionSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import profileIcon from '../../../../assets/images/profileImage.svg';
@@ -52,7 +51,6 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
     if (userData) setLogStatus(userData);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    dispatch(setUserSession(undefined));
     dispatch(setUserData(undefined));
     setOpen(false);
     navigate('/signin');

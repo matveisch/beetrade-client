@@ -5,7 +5,6 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import classes from './SignInForm.module.scss';
 import InputField from '../../ui/InputField/InputField';
-import { setUserSession } from '../../features/userSession/userSessionSlice';
 import { setUserData } from '../../features/userData/userDataSlice';
 
 interface SignInValuesType {
@@ -65,8 +64,6 @@ function SignInForm() {
           onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
             signIn(values).then(userData => {
               localStorage.setItem('token', userData.token);
-              dispatch(setUserSession(userData.token));
-
               localStorage.setItem('id', userData.user._id);
 
               // const { firstName, hasPaid, isAdmin } = userData.user;
