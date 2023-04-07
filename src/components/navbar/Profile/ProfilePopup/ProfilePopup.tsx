@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import classes from './ProfilePopup.module.scss';
 import PopupOption from './PopupOption/PopupOption';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-
 import profileIcon from '../../../../assets/images/profileImage.svg';
 import studyIcon from '../../../../assets/images/studyIcon.svg';
 import settingsIcon from '../../../../assets/images/settingsIcon.svg';
