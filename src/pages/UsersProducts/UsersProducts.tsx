@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { ColorRing } from 'react-loader-spinner';
 import classes from './UsersProducts.module.scss';
 import CourseItem from '../../components/CourseItem/CourseItem';
 import { useAppSelector } from '../../hooks';
@@ -13,6 +14,27 @@ function UsersProducts() {
   useEffect(() => {
     if (token === null) navigate('/signin');
   }, []);
+
+  if (!userData)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          height: 'calc(100% - 120px)',
+          alignItems: 'center',
+        }}>
+        <ColorRing
+          visible
+          height="300"
+          width="300"
+          ariaLabel="blocks-loading"
+          wrapperClass="blocks-wrapper"
+          colors={['#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37']}
+        />
+      </div>
+    );
 
   return (
     <div className={classes.usersProducts}>

@@ -118,7 +118,9 @@ function Layout() {
 
   return (
     <div className={classes.app}>
-      <header>{userData && <Navbar />}</header>
+      <header>
+        <Navbar />
+      </header>
       <main className={classes.main}>
         <Outlet />
       </main>

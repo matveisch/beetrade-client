@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ColorRing } from 'react-loader-spinner';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -34,8 +35,26 @@ function CurrentVideo() {
     return () => window.removeEventListener('resize', handleResize);
   });
 
-  // todo: error handling
-  if (!videos || !currentVideo || !currentSection) return <div>error</div>;
+  if (!videos || !currentVideo || !currentSection)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          height: 'calc(100% - 120px)',
+          alignItems: 'center',
+        }}>
+        <ColorRing
+          visible
+          height="300"
+          width="300"
+          ariaLabel="blocks-loading"
+          wrapperClass="blocks-wrapper"
+          colors={['#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37']}
+        />
+      </div>
+    );
 
   return windowWidth > 768 ? (
     <div className={classes.currentVideo}>
