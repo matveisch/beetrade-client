@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -40,14 +39,14 @@ function CurrentVideo() {
 
   return windowWidth > 768 ? (
     <div className={classes.currentVideo}>
-      <div className={classes.videoPlayerContainer}>
-        <VideoPlayer />
-        <Contents />
-      </div>
       <Sidebar
         currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
         videos={videos}
       />
+      <div className={classes.videoPlayerContainer}>
+        <VideoPlayer />
+        <Contents />
+      </div>
     </div>
   ) : (
     <div className={classes.currentVideoMobile}>
