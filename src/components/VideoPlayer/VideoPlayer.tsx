@@ -2,15 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import classes from './VideoPlayer.module.scss';
 import playButton from '../../assets/images/playButton.svg';
 import videoThumbnail from '../../assets/images/videoThumbnail.svg';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
+import { setGlobalError } from '../../features/globalError/globalErrorSlice';
 
 function VideoPlayer() {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
   const currentVideoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
-
   const currentVideo = useAppSelector(selectCurrentVideo);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setVideoIsPlaying(false);
@@ -19,6 +20,7 @@ function VideoPlayer() {
 
   async function getVideoSrc() {
     try {
+      // todo: replace video url one there will be more videos
       const response = await fetch(`${import.meta.env.VITE_API}/videos/123`, {
         method: 'GET',
         headers: {
@@ -29,7 +31,7 @@ function VideoPlayer() {
       const data = await response.json();
       setVideoSrc(data);
     } catch (error) {
-      console.error(error);
+      dispatch(setGlobalError('there was a problem downloading video'));
     }
   }
 

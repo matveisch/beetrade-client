@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import classes from './styles/App.module.scss';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -9,6 +9,9 @@ import { setCurrentSection } from './features/currentSection/currentSectionSlice
 import { getFirstUnseenVideo } from './pages/CurrentVideo/CurrentVideo';
 import { UserDataType } from './interface/types';
 import Navbar from './components/Navbar/Navbar';
+import { selectGlobalError, setGlobalError } from './features/globalError/globalErrorSlice';
+import ErrorMessage from './ui/ErrorMessage/ErrorMessage';
+import { store } from './store';
 
 export async function getUserData(id: string) {
   try {
@@ -22,12 +25,13 @@ export async function getUserData(id: string) {
 
     if (!response.ok) {
       const text = await response.json();
-      throw Error(text.message);
+      if (typeof text.message === 'string') store.dispatch(setGlobalError(text.message));
     }
 
     return await response.json();
   } catch (e) {
-    console.log(e);
+    if (typeof e === 'string') store.dispatch(setGlobalError(e));
+    store.dispatch(setGlobalError('there was a problem getting user data '));
   }
 }
 
@@ -43,10 +47,11 @@ export async function setLogStatus(userData: UserDataType) {
 
     if (!response.ok) {
       const text = await response.json();
-      throw Error(text.message);
+      if (typeof text.message === 'string') store.dispatch(setGlobalError(text.message));
     }
   } catch (e) {
-    console.log(e);
+    if (typeof e === 'string') store.dispatch(setGlobalError(e));
+    store.dispatch(setGlobalError('there was a problem setting log status'));
   }
 }
 
@@ -56,6 +61,8 @@ function Layout() {
   const id = localStorage.getItem('id');
   const navigate = useNavigate();
   const userData = useAppSelector(selectUserData);
+  const globalError = useAppSelector(selectGlobalError);
+  const [animationOut, setAnimationOut] = useState(false);
 
   function handleSignOut() {
     localStorage.removeItem('token');
@@ -64,6 +71,19 @@ function Layout() {
     if (userData) setLogStatus(userData);
     navigate('/signin');
   }
+
+  useEffect(() => {
+    if (globalError) {
+      setTimeout(() => {
+        setAnimationOut(true);
+
+        setTimeout(() => {
+          dispatch(setGlobalError(undefined));
+          setAnimationOut(false);
+        }, 500);
+      }, 3000);
+    }
+  }, [globalError]);
 
   async function getVideos() {
     try {
@@ -77,7 +97,7 @@ function Layout() {
 
       return await response.json();
     } catch (e) {
-      console.log(e);
+      dispatch(setGlobalError("can't load videos"));
     }
   }
 
@@ -124,6 +144,13 @@ function Layout() {
       <main className={classes.main}>
         <Outlet />
       </main>
+      {globalError && (
+        <div
+          className={`${classes.errorWrapper} ${animationOut ? classes.out : classes.in}`}
+          style={animationOut ? { bottom: '10vh' } : undefined}>
+          <ErrorMessage error={globalError} isGlobal />
+        </div>
+      )}
     </div>
   );
 }

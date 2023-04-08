@@ -11,3 +11,33 @@
 
 .main {
 }
+
+.errorWrapper {
+  position: absolute;
+  bottom: -10vh;
+  width: 100vw;
+  height: 20px;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.errorWrapper.in {
+  animation: slide 0.5s forwards;
+}
+
+.errorWrapper.out {
+  animation: slideOut 0.5s forwards;
+}
+
+@keyframes slide {
+  100% {
+    bottom: 10vh;
+  }
+}
+
+@keyframes slideOut {
+  100% {
+    bottom: -10vh;
+  }
+}

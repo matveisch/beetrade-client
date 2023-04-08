@@ -12,6 +12,12 @@
   border: 3px solid #ff2f2f;
   border-radius: 8px;
 
+  svg {
+    cursor: pointer;
+    width: 13px;
+    height: 13px;
+  }
+
   .message {
     font-family: $font;
     font-style: normal;
