@@ -77,8 +77,6 @@ function Book() {
     if (!existingNote) setNotes(prevState => [...prevState, { page: pageNumber }]);
   }
 
-  console.log(notes);
-
   return (
     <div className={classes.book}>
       <div className={classes.contents}>
@@ -109,13 +107,13 @@ function Book() {
         </div>
       </div>
       <div className={classes.notes}>
-        <button className={classes.addNoteButton} onClick={handleNewNote}>
+        <button className={classes.addNoteButton} onClick={handleNewNote} type="button">
           להוסיף סימניה{' '}
         </button>
         <div className={classes.notesList}>
           {notes.map(note => {
             return (
-              <button className={classes.button} onClick={() => setPageNumber(note.page)}>
+              <button className={classes.button} onClick={() => setPageNumber(note.page)} key={`note-${note.page}`}>
                 <span className={classes.buttonLabel}>{note.page}</span>
               </button>
             );
