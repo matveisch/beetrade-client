@@ -113,7 +113,11 @@ function Book() {
         <div className={classes.notesList}>
           {notes.map(note => {
             return (
-              <button className={classes.button} onClick={() => setPageNumber(note.page)} key={`note-${note.page}`}>
+              <button
+                className={classes.button}
+                onClick={() => setPageNumber(note.page)}
+                key={`note-${note.page}`}
+                type="button">
                 <span className={classes.buttonLabel}>{note.page}</span>
               </button>
             );
