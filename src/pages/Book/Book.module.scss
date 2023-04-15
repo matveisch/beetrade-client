@@ -1,0 +1,133 @@
+.book {
+  display: grid;
+  grid-template-columns: 1fr 595px 1fr;
+
+  .contents {
+    h2 {
+      margin-bottom: 23px;
+    }
+
+    .colorfulFont {
+      background: linear-gradient(270deg, #9e2fff 0%, #ff9e2f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .headers {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+
+      max-height: 600px;
+      overflow-y: scroll;
+
+      h3 {
+        color: #deceec;
+      }
+    }
+  }
+
+  .bookWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .document {
+      min-height: 842px;
+    }
+
+    .pageCounter {
+      background: linear-gradient(270deg, #9e2fff 0%, #ff9e2f 100%);
+      border-radius: 8px;
+
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      padding: 5px;
+      margin-top: 20px;
+
+      .arrow {
+        $arrowSize: 14px;
+
+        width: 0;
+        height: 0;
+        border-top: $arrowSize solid transparent; /* adjust size as needed */
+        border-bottom: $arrowSize solid transparent; /* adjust size as needed */
+        border-right: $arrowSize solid black; /* adjust color as needed */
+      }
+
+      .pageNumber {
+        background: #09040f;
+        border-radius: 5px;
+        padding: 12px 13px;
+
+        font-family: $font;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 67.99%;
+        text-align: right;
+        color: #deceec;
+
+        width: fit-content;
+      }
+    }
+  }
+
+  .notes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .addNoteButton {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 30px;
+      gap: 10px;
+
+      background: linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
+      border-radius: 8px;
+    }
+
+    .notesList {
+      width: 100%;
+      margin-top: 60px;
+      max-height: 600px;
+      overflow-y: scroll;
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .button {
+        background: transparent;
+        padding: 0.5rem 1rem;
+        background-image: linear-gradient(90deg, $background-black, $background-black),
+          linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
+        background-clip: padding-box, border-box;
+        background-origin: border-box;
+        border: 3px solid transparent;
+        border-radius: 8px;
+
+        width: 100%;
+      }
+
+      .buttonLabel {
+        //background-image: linear-gradient(90deg, hsl(289, 65%, 64%), hsl(226, 78%, 67%));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: #deceec;
+
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 67.99%;
+        text-align: right;
+      }
+    }
+  }
+}
