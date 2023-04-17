@@ -18,7 +18,7 @@ function SwiperButton({ title, slideTo }: { title: string; slideTo: number }) {
   const swiper = useSwiper();
 
   return (
-    <button className={classes.swiperButton} onClick={() => swiper.slideTo(slideTo)}>
+    <button className={classes.swiperButton} onClick={() => swiper.slideTo(slideTo)} type="button">
       {title}
     </button>
   );
@@ -105,11 +105,7 @@ function Book() {
           <div className={classes.pageNumber}>{pageNumber}</div>
           <button className={classes.arrow} type="button" onClick={handlePrevPage} />
         </div>
-        <Swiper
-          centeredSlides
-          slidesPerView="auto"
-          onSlideChange={() => console.log('slide change')}
-          className={classes.swiper}>
+        <Swiper centeredSlides slidesPerView="auto" className={classes.swiper}>
           <div className={classes.buttonsWrapper}>
             <SwiperButton title="contents" slideTo={0} />
             <SwiperButton title="notes" slideTo={1} />
