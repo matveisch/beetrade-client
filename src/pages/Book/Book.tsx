@@ -1,14 +1,27 @@
 import { Document, Page, pdfjs } from 'react-pdf';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { useState } from 'react';
 import classes from './Book.module.scss';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import addMarkImg from '../../assets/images/add-mark.svg';
 import BookmarkButton from './BookmarkButton/BookmarkButton';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export interface Note {
   page: number;
+}
+
+function SwiperButton({ title, slideTo }: { title: string; slideTo: number }) {
+  const swiper = useSwiper();
+
+  return (
+    <button className={classes.swiperButton} onClick={() => swiper.slideTo(slideTo)}>
+      {title}
+    </button>
+  );
 }
 
 function Book() {
@@ -81,22 +94,7 @@ function Book() {
 
   return (
     <div className={classes.book}>
-      <div className={classes.contents}>
-        <h2 className={classes.colorfulFont}>ספר תבניות</h2>
-        <div className={classes.headers}>
-          {bookHeaders.map(header => {
-            return (
-              <button onClick={() => setPageNumber(header.page)} key={`${header.title}-${header.page}`} type="button">
-                <h3 className={pageNumber === header.page ? classes.colorfulFont : undefined}>{header.title}</h3>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-      <div className={classes.bookWrapper}>
-        <Document file="/book.pdf" className={classes.document}>
-          <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} height={700} />
-        </Document>
+      <div className={classes.switcherWrapper}>
         <div className={classes.pageCounter}>
           <button
             className={classes.arrow}
@@ -107,16 +105,50 @@ function Book() {
           <div className={classes.pageNumber}>{pageNumber}</div>
           <button className={classes.arrow} type="button" onClick={handlePrevPage} />
         </div>
+        <Swiper
+          centeredSlides
+          slidesPerView="auto"
+          onSlideChange={() => console.log('slide change')}
+          className={classes.swiper}>
+          <div className={classes.buttonsWrapper}>
+            <SwiperButton title="contents" slideTo={0} />
+            <SwiperButton title="notes" slideTo={1} />
+          </div>
+          <SwiperSlide>
+            <div className={classes.contents}>
+              <h2 className={classes.colorfulFont}>ספר תבניות</h2>
+              <div className={classes.headers}>
+                {bookHeaders.map(header => {
+                  return (
+                    <button
+                      onClick={() => setPageNumber(header.page)}
+                      key={`${header.title}-${header.page}`}
+                      type="button">
+                      <h3 className={pageNumber === header.page ? classes.colorfulFont : undefined}>{header.title}</h3>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={classes.notes}>
+              <button className={classes.addNoteButton} onClick={handleNewNote} type="button">
+                להוסיף סימניה <img src={addMarkImg} alt="add-mark-img" />
+              </button>
+              <div className={classes.notesList}>
+                {notes.map(note => {
+                  return <BookmarkButton setPageNumber={setPageNumber} note={note} key={`note-${note.page}`} />;
+                })}
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
-      <div className={classes.notes}>
-        <button className={classes.addNoteButton} onClick={handleNewNote} type="button">
-          להוסיף סימניה <img src={addMarkImg} alt="add-mark-img" />
-        </button>
-        <div className={classes.notesList}>
-          {notes.map(note => {
-            return <BookmarkButton setPageNumber={setPageNumber} note={note} key={`note-${note.page}`} />;
-          })}
-        </div>
+      <div className={classes.bookWrapper}>
+        <Document file="/book.pdf" className={classes.document}>
+          <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />
+        </Document>
       </div>
     </div>
   );
