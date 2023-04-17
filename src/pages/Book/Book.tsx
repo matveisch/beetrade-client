@@ -1,6 +1,6 @@
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classes from './Book.module.scss';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import addMarkImg from '../../assets/images/add-mark.svg';
@@ -78,6 +78,7 @@ function Book() {
       title: 'שיטת שלוש נרות',
     },
   ];
+  const currentHeader = useRef<HTMLButtonElement>(null);
 
   function handlePrevPage() {
     if (pageNumber > 1) setPageNumber(pageNumber - 1);
@@ -91,6 +92,10 @@ function Book() {
     const existingNote = notes.find(note => note.page === pageNumber);
     if (!existingNote) setNotes(prevState => [...prevState, { page: pageNumber }]);
   }
+
+  useEffect(() => {
+    currentHeader.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [pageNumber]);
 
   return (
     <div className={classes.book}>
@@ -117,7 +122,10 @@ function Book() {
                 {bookHeaders.map(header => {
                   return (
                     <button
-                      onClick={() => setPageNumber(header.page)}
+                      ref={pageNumber === header.page ? currentHeader : undefined}
+                      onClick={() => {
+                        setPageNumber(header.page);
+                      }}
                       key={`${header.title}-${header.page}`}
                       type="button">
                       <h3 className={pageNumber === header.page ? classes.colorfulFont : undefined}>{header.title}</h3>
