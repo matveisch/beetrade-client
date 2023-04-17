@@ -93,7 +93,7 @@ function Book() {
       </div>
       <div className={classes.bookWrapper}>
         <Document file="/book.pdf" className={classes.document}>
-          <Page pageNumber={pageNumber} renderAnnotationLayer={false} />
+          <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} height={700} />
         </Document>
         <div className={classes.pageCounter}>
           <button
