@@ -1,0 +1,25 @@
+.headers {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+
+  flex-grow: 1;
+  overflow-y: scroll;
+
+  h3 {
+    color: #deceec;
+    width: fit-content;
+    font-size: 2.5vw;
+  }
+
+  button {
+    width: fit-content;
+  }
+
+  .colorfulFont {
+    background: linear-gradient(270deg, #9e2fff 0%, #ff9e2f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}

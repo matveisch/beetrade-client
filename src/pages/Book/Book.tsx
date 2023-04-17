@@ -7,6 +7,7 @@ import addMarkImg from '../../assets/images/add-mark.svg';
 import BookmarkButton from './BookmarkButton/BookmarkButton';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import Headers from './Headers/Headers';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -118,21 +119,7 @@ function Book() {
           <SwiperSlide>
             <div className={classes.contents}>
               <h2 className={classes.colorfulFont}>ספר תבניות</h2>
-              <div className={classes.headers}>
-                {bookHeaders.map(header => {
-                  return (
-                    <button
-                      ref={pageNumber === header.page ? currentHeader : undefined}
-                      onClick={() => {
-                        setPageNumber(header.page);
-                      }}
-                      key={`${header.title}-${header.page}`}
-                      type="button">
-                      <h3 className={pageNumber === header.page ? classes.colorfulFont : undefined}>{header.title}</h3>
-                    </button>
-                  );
-                })}
-              </div>
+              <Headers bookHeaders={bookHeaders} pageNumber={pageNumber} setPageNumber={setPageNumber} />
             </div>
           </SwiperSlide>
           <SwiperSlide>

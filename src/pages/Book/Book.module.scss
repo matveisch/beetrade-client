@@ -3,6 +3,11 @@
   grid-template-columns: 30vw 50vw;
   justify-content: space-between;
 
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
   .contents {
     display: flex;
     flex-direction: column;
@@ -19,25 +24,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .headers {
-      display: flex;
-      flex-direction: column;
-      gap: 17px;
-
-      flex-grow: 1;
-      overflow-y: scroll;
-
-      h3 {
-        color: #deceec;
-        width: fit-content;
-        font-size: 2.5vw;
-      }
-
-      button {
-        width: fit-content;
-      }
-    }
   }
 
   .bookWrapper {
@@ -45,14 +31,48 @@
     flex-direction: column;
     align-items: center;
 
+    @media (max-width: 768px) {
+      min-height: 538px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 425px) {
+      min-height: 433px;
+    }
+
+    @media (max-width: 375px) {
+      min-height: 382px;
+    }
+
+    @media (max-width: 320px) {
+      min-height: 367px;
+    }
+
     .document {
       width: 100%;
     }
 
     .page {
+      display: flex;
+      justify-content: center;
+
       canvas {
         width: unset !important;
         height: unset !important;
+
+        @media (max-width: 768px) {
+          width: 70% !important;
+          max-height: unset !important;
+        }
+
+        @media (max-width: 425px) {
+          width: 90% !important;
+        }
+
+        @media (max-width: 320px) {
+          width: 90% !important;
+        }
+
         max-height: 70vw !important;
 
         @media (min-width: 1024px) {
@@ -162,6 +182,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 20px;
+
     .swiperButton {
       padding: 15px 0;
       background: linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
