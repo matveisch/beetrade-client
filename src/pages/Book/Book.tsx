@@ -2,15 +2,17 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { useState } from 'react';
 import classes from './Book.module.scss';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import addMarkImg from '../../assets/images/add-mark.svg';
+import BookmarkButton from './BookmarkButton/BookmarkButton';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-interface Note {
+export interface Note {
   page: number;
 }
 
 function Book() {
-  const [pageNumber, setPageNumber] = useState(4);
+  const [pageNumber, setPageNumber] = useState(1);
   const [notes, setNotes] = useState<Note[]>([]);
   const bookHeaders = [
     { page: 1, title: 'פסגה כפולה' },
@@ -108,19 +110,11 @@ function Book() {
       </div>
       <div className={classes.notes}>
         <button className={classes.addNoteButton} onClick={handleNewNote} type="button">
-          להוסיף סימניה{' '}
+          להוסיף סימניה <img src={addMarkImg} alt="add-mark-img" />
         </button>
         <div className={classes.notesList}>
           {notes.map(note => {
-            return (
-              <button
-                className={classes.button}
-                onClick={() => setPageNumber(note.page)}
-                key={`note-${note.page}`}
-                type="button">
-                <span className={classes.buttonLabel}>{note.page}</span>
-              </button>
-            );
+            return <BookmarkButton setPageNumber={setPageNumber} note={note} key={`note-${note.page}`} />;
           })}
         </div>
       </div>

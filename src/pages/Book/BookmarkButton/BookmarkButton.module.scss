@@ -1,0 +1,35 @@
+.button {
+  background: transparent;
+  padding: 0.5rem 1rem;
+  background-image: linear-gradient(90deg, $background-black, $background-black),
+    linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+  border: 3px solid transparent;
+  border-radius: 8px;
+
+  width: 100%;
+}
+
+.buttonLabel {
+  //background-image: linear-gradient(90deg, hsl(289, 65%, 64%), hsl(226, 78%, 67%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #deceec;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 67.99%;
+  text-align: right;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 21.5px;
+}
+
+.iconsWrapper {
+  display: flex;
+  gap: 15px;
+}
