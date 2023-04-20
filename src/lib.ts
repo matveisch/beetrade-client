@@ -14,6 +14,7 @@ export async function getData<T>(url: string, signOutFunc?: () => void): Promise
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 401 && signOutFunc) signOutFunc();
+      store.dispatch(setGlobalError(error.response.data.message));
       throw new Error(error.response.data.message);
     } else {
       store.dispatch(setGlobalError(error.message));
@@ -33,7 +34,9 @@ export async function postData<T>(url: string, data: unknown): Promise<T> {
 
     return response.data;
   } catch (error: any) {
+    console.log(error);
     if (error.response) {
+      store.dispatch(setGlobalError(error.response.data.message));
       throw new Error(error.response.data.message);
     } else {
       store.dispatch(setGlobalError(error.message));
@@ -54,6 +57,7 @@ export async function putData<T>(url: string, data?: any): Promise<T> {
     return response.data;
   } catch (error: any) {
     if (error.response) {
+      store.dispatch(setGlobalError(error.response.data.message));
       throw new Error(error.response.data.message);
     } else {
       store.dispatch(setGlobalError(error.message));

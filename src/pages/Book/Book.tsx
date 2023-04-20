@@ -105,9 +105,7 @@ function Book() {
   }, [userData]);
 
   function handleNewNote() {
-    const existingNote = notes.find(note => note.page === pageNumber);
-    if (existingNote) dispatch(setGlobalError('there is a note for this page already'));
-    if (!existingNote && userData) {
+    if (userData) {
       const note: Note = {
         page: pageNumber,
         name: `page #${pageNumber}`,

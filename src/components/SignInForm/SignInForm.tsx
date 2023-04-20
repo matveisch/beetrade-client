@@ -66,10 +66,6 @@ function SignInForm() {
               localStorage.setItem('token', userData.token);
               localStorage.setItem('id', userData.user._id);
 
-              // const { firstName, hasPaid, isAdmin } = userData.user;
-              // const user = { firstName, hasPaid, isAdmin };
-              // localStorage.setItem('user', JSON.stringify(user));
-
               dispatch(setUserData(userData.user));
 
               setSubmitting(false);
