@@ -114,7 +114,7 @@ function Book() {
         userId: userData._id,
       };
 
-      postData('notes/create', note).then(() => {
+      postData<Note>('notes/create', note).then(() => {
         getData<Note[]>(`notes?userId=${userData?._id}`).then(data => {
           setNotes(data);
         });

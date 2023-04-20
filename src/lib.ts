@@ -22,9 +22,9 @@ export async function getData<T>(url: string, signOutFunc?: () => void): Promise
   }
 }
 
-export async function postData(url: string, data: unknown): Promise<any> {
+export async function postData<T>(url: string, data: unknown): Promise<T> {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API}/${url}`, data, {
+    const response: AxiosResponse<T> = await axios.post(`${import.meta.env.VITE_API}/${url}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
@@ -37,13 +37,14 @@ export async function postData(url: string, data: unknown): Promise<any> {
       throw new Error(error.response.data.message);
     } else {
       store.dispatch(setGlobalError(error.message));
+      throw new Error('there was a problem creating data');
     }
   }
 }
 
-export async function putData(url: string, data?: any): Promise<any> {
+export async function putData<T>(url: string, data?: any): Promise<T> {
   try {
-    const response = await axios.put(`${import.meta.env.VITE_API}/${url}`, data, {
+    const response: AxiosResponse<T> = await axios.put(`${import.meta.env.VITE_API}/${url}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
@@ -55,7 +56,8 @@ export async function putData(url: string, data?: any): Promise<any> {
     if (error.response) {
       throw new Error(error.response.data.message);
     } else {
-      throw new Error('There was a problem making the PUT request');
+      store.dispatch(setGlobalError(error.message));
+      throw new Error('there was a problem updating data');
     }
   }
 }
