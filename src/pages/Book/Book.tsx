@@ -10,7 +10,6 @@ import 'swiper/css/navigation';
 import Headers from './Headers/Headers';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectUserData } from '../../features/userData/userDataSlice';
-import { setGlobalError } from '../../features/globalError/globalErrorSlice';
 import { getData, postData } from '../../lib';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -87,7 +86,6 @@ function Book() {
   ];
   const currentHeader = useRef<HTMLButtonElement>(null);
   const userData = useAppSelector(selectUserData);
-  const dispatch = useAppDispatch();
 
   function handlePrevPage() {
     if (pageNumber > 1) setPageNumber(pageNumber - 1);

@@ -7,6 +7,8 @@ import SettingsInput from '../SettingsInput/SettingsInput';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
 import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
+import { putData } from '../../../lib';
+import { UserDataType } from '../../../interface/types';
 
 interface SignInValuesType {
   firstName: string;
@@ -21,28 +23,6 @@ const SignInSchema = Yup.object().shape({
     .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
     .max(40),
 });
-
-export async function updateUserData(id: string, userData: any) {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API}/user/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(userData),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    if (!response.ok) {
-      const text = await response.json();
-      throw Error(text.message);
-    }
-
-    return await response.json();
-  } catch (e) {
-    console.log(e);
-  }
-}
 
 function PersonalForm() {
   const [canEdit, setCanEdit] = useState(false);
@@ -62,7 +42,7 @@ function PersonalForm() {
         validationSchema={SignInSchema}
         onSubmit={(values: SignInValuesType, { setSubmitting }: FormikHelpers<SignInValuesType>) => {
           if (id !== null && (values.firstName !== userData?.firstName || values.secondName !== userData?.secondName))
-            updateUserData(id, values).then(data => {
+            putData<UserDataType>(`user/${id}`, values).then(data => {
               dispatch(setUserData(data));
             });
           setSubmitting(false);

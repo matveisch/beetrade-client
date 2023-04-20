@@ -5,33 +5,12 @@ import classes from '../SettingsForm.module.scss';
 import EditButton from '../EditButton/EditButton';
 import SettingsInput from '../SettingsInput/SettingsInput';
 import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
+import { putData } from '../../../lib';
 
 interface SignInValuesType {
   oldPassword: string;
   newPassword: string;
   confirmPassword: string;
-}
-
-async function updateUserPassword(id: string, userData: any) {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API}/user/${id}/changePassword`, {
-      method: 'PUT',
-      body: JSON.stringify(userData),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    if (!response.ok) {
-      const text = await response.json();
-      throw Error(text.message);
-    }
-
-    return await response.json();
-  } catch (e) {
-    console.log(e);
-  }
 }
 
 function PasswordForm() {
@@ -71,7 +50,7 @@ function PasswordForm() {
         validationSchema={SignInSchema}
         onSubmit={(values: SignInValuesType, { setSubmitting, resetForm }: FormikHelpers<SignInValuesType>) => {
           if (id !== null && values.oldPassword !== '' && values.newPassword !== '' && values.confirmPassword !== '') {
-            updateUserPassword(id, values).then(data => {
+            putData(`user/${id}/changePassword`, values).then(data => {
               if (!data) {
                 setTriggerError(true);
                 setCustomError('Wrong password');

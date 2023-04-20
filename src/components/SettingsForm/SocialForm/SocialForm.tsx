@@ -4,10 +4,11 @@ import * as Yup from 'yup';
 import classes from '../SettingsForm.module.scss';
 import EditButton from '../EditButton/EditButton';
 import SettingsInput from '../SettingsInput/SettingsInput';
-import { updateUserData } from '../PersonalForm/PersonalForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
 import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
+import { putData } from '../../../lib';
+import { UserDataType } from '../../../interface/types';
 
 export interface SignInValuesType {
   facebook: string;
@@ -54,7 +55,7 @@ function SettingsForm() {
               values.telegram !== userData?.telegram ||
               values.linkedin !== userData?.linkedin)
           )
-            updateUserData(id, values).then(data => {
+            putData<UserDataType>(`user/${id}`, values).then(data => {
               dispatch(setUserData(data));
             });
           setSubmitting(false);

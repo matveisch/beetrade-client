@@ -7,32 +7,12 @@ import SettingsInput from '../SettingsInput/SettingsInput';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectUserData, setUserData } from '../../../features/userData/userDataSlice';
 import { WindowWidthContext, WindowWidthContextType } from '../../../pages/Settings/Settings';
+import { putData } from '../../../lib';
+import { UserDataType } from '../../../interface/types';
 
 interface SignInValuesType {
   email: string;
   password: string;
-}
-
-export async function updateUserEmail(id: string, userData: any) {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API}/user/${id}/updateEmail`, {
-      method: 'PUT',
-      body: JSON.stringify(userData),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    if (!response.ok) {
-      const text = await response.json();
-      throw Error(text.message);
-    }
-
-    return await response.json();
-  } catch (e) {
-    console.log(e);
-  }
 }
 
 function MailForm() {
@@ -62,7 +42,7 @@ function MailForm() {
         onSubmit={(values: SignInValuesType, { setSubmitting, resetForm }: FormikHelpers<SignInValuesType>) => {
           if (values.email !== userData?.email) {
             if (id !== null) {
-              updateUserEmail(id, values).then(data => {
+              putData<UserDataType>(`user/${id}/updateEmail`, values).then(data => {
                 dispatch(setUserData(data));
                 resetForm();
               });

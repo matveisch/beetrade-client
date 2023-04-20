@@ -2,41 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import classes from './VideoPlayer.module.scss';
 import playButton from '../../assets/images/playButton.svg';
 import videoThumbnail from '../../assets/images/videoThumbnail.svg';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
-import { setGlobalError } from '../../features/globalError/globalErrorSlice';
+import { getData } from '../../lib';
 
 function VideoPlayer() {
   const [videoIsPlaying, setVideoIsPlaying] = useState(false);
   const currentVideoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
   const currentVideo = useAppSelector(selectCurrentVideo);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setVideoIsPlaying(false);
     currentVideoRef.current?.load();
   }, [currentVideo]);
 
-  async function getVideoSrc() {
-    try {
-      // todo: replace video url one there will be more videos
-      const response = await fetch(`${import.meta.env.VITE_API}/videos/123`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      const data = await response.json();
-      setVideoSrc(data);
-    } catch (error) {
-      dispatch(setGlobalError('there was a problem downloading video'));
-    }
-  }
-
   useEffect(() => {
-    getVideoSrc();
+    getData<string>('videos/123').then(data => {
+      setVideoSrc(data);
+    });
   }, []);
 
   return (

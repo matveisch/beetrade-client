@@ -4,6 +4,8 @@ import emptyBullet from '../../assets/images/empty-bullet.svg';
 import bulletFill from '../../assets/images/bullet-fill.svg';
 import { useAppDispatch } from '../../hooks';
 import { setVideos } from '../../features/videos/videosSlice';
+import { putData } from '../../lib';
+import { VideoType } from '../../interface/types';
 
 interface BulletPointProps {
   isChecked: boolean;
@@ -21,25 +23,6 @@ function BulletPoint({ isChecked, videoId, frameWidth, fillWidth, onClick }: Bul
     if (isChecked) setIsMarked(true);
   }, [isChecked]);
 
-  async function setWatchStatus(status: boolean) {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API}/videos/${videoId}/watchStatus`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          watched: status,
-        }),
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      return await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -48,7 +31,11 @@ function BulletPoint({ isChecked, videoId, frameWidth, fillWidth, onClick }: Bul
         if (onClick) onClick(e);
 
         if (videoId) {
-          setWatchStatus(!isMarked).then(videos => {
+          const status = {
+            watched: !isMarked,
+          };
+
+          putData<VideoType[]>(`videos/${videoId}/watchStatus`, status).then(videos => {
             dispatch(setVideos(videos));
           });
         }

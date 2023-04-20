@@ -5,6 +5,7 @@ import { SectionType } from '../../../interface/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectCurrentSection, setCurrentSection } from '../../../features/currentSection/currentSectionSlice';
 import { selectSections, setSections } from '../../../features/sections/sectionsSlice';
+import { getData } from '../../../lib';
 
 export function handleSectionChange(sections: SectionType[], direction: string, currentSection: SectionType) {
   let section: SectionType = currentSection;
@@ -24,17 +25,8 @@ function CourseChooser() {
   const sections = useAppSelector(selectSections);
   const dispatch = useAppDispatch();
 
-  async function getSections() {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API}/section`);
-      return await response.json();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   useEffect(() => {
-    getSections().then(data => {
+    getData<SectionType[]>('section').then(data => {
       dispatch(setSections(data));
     });
   }, []);
