@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { VideoType } from '../../interface/types';
 import Contents from '../../components/Contents/Contents';
-import { useAppSelector } from '../../hooks';
-import { selectVideos } from '../../features/videos/videosSlice';
-import { selectCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
-import { selectCurrentSection } from '../../features/currentSection/currentSectionSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectVideos, setVideos } from '../../features/videos/videosSlice';
+import { selectCurrentVideo, setCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
+import { selectCurrentSection, setCurrentSection } from '../../features/currentSection/currentSectionSlice';
 import Description from '../../components/Contents/Description/Description';
 import SectionsGrid from '../../components/Contents/SectionsGrid/SectionsGrid';
+import { selectUserData, setUserData } from '../../features/userData/userDataSlice';
+import { getData, putData } from '../../lib';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos?.find(video => !video.watched);
@@ -24,6 +27,17 @@ function CurrentVideo() {
   const currentSection = useAppSelector(selectCurrentSection);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [currentView, setCurrentView] = useState<'sections' | 'sidebar' | 'description'>('sidebar');
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector(selectUserData);
+  const navigate = useNavigate();
+
+  function handleSignOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch(setUserData(undefined));
+    if (userData) putData(`/user/${userData?._id}/handleLogout`);
+    navigate('/signin');
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -34,6 +48,18 @@ function CurrentVideo() {
 
     return () => window.removeEventListener('resize', handleResize);
   });
+
+  useEffect(() => {
+    if (userData) {
+      getData<VideoType[]>('videos', handleSignOut).then(data => {
+        dispatch(setVideos(data));
+
+        const video = getFirstUnseenVideo(data);
+        dispatch(setCurrentVideo(video));
+        dispatch(setCurrentSection(video.section));
+      });
+    }
+  }, [userData]);
 
   if (!videos || !currentVideo || !currentSection)
     return (

@@ -8,11 +8,17 @@ import BookmarkButton from './BookmarkButton/BookmarkButton';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Headers from './Headers/Headers';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectUserData } from '../../features/userData/userDataSlice';
+import { setGlobalError } from '../../features/globalError/globalErrorSlice';
+import { getData, postData } from '../../lib';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export interface Note {
+  name: string;
   page: number;
+  userId: string;
 }
 
 function SwiperButton({ title, slideTo }: { title: string; slideTo: number }) {
@@ -80,6 +86,8 @@ function Book() {
     },
   ];
   const currentHeader = useRef<HTMLButtonElement>(null);
+  const userData = useAppSelector(selectUserData);
+  const dispatch = useAppDispatch();
 
   function handlePrevPage() {
     if (pageNumber > 1) setPageNumber(pageNumber - 1);
@@ -89,9 +97,29 @@ function Book() {
     if (pageNumber < 44) setPageNumber(pageNumber + 1);
   }
 
+  useEffect(() => {
+    if (userData)
+      getData<Note[]>(`notes?userId=${userData?._id}`).then(data => {
+        setNotes(data);
+      });
+  }, [userData]);
+
   function handleNewNote() {
     const existingNote = notes.find(note => note.page === pageNumber);
-    if (!existingNote) setNotes(prevState => [...prevState, { page: pageNumber }]);
+    if (existingNote) dispatch(setGlobalError('there is a note for this page already'));
+    if (!existingNote && userData) {
+      const note: Note = {
+        page: pageNumber,
+        name: `page #${pageNumber}`,
+        userId: userData._id,
+      };
+
+      postData('notes/create', note).then(() => {
+        getData<Note[]>(`notes?userId=${userData?._id}`).then(data => {
+          setNotes(data);
+        });
+      });
+    }
   }
 
   useEffect(() => {
@@ -128,7 +156,7 @@ function Book() {
                 להוסיף סימניה <img src={addMarkImg} alt="add-mark-img" />
               </button>
               <div className={classes.notesList}>
-                {notes.map(note => {
+                {notes?.map(note => {
                   return <BookmarkButton setPageNumber={setPageNumber} note={note} key={`note-${note.page}`} />;
                 })}
               </div>

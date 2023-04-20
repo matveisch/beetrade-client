@@ -11,7 +11,7 @@ import friendIcon from '../../../../assets/images/friendIcon.svg';
 import closeButton from '../../../../assets/images/closeButton.svg';
 import exitIcon from '../../../../assets/images/exitIcon.svg';
 import { selectUserData, setUserData } from '../../../../features/userData/userDataSlice';
-import { setLogStatus } from '../../../../Layout';
+import { putData } from '../../../../lib';
 
 interface ProfilePopupProps {
   open: boolean;
@@ -47,7 +47,7 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
   const userData = useAppSelector(selectUserData);
 
   function handleSignOut() {
-    if (userData) setLogStatus(userData);
+    if (userData) putData(`/user/${userData?._id}/handleLogout`);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     dispatch(setUserData(undefined));

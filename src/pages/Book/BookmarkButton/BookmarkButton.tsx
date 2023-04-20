@@ -12,7 +12,7 @@ interface Props {
 
 function BookmarkButton({ setPageNumber, note }: Props) {
   const [activeInput, setActiveInput] = useState(false);
-  const [buttonName, setButtonName] = useState<string>(`page #${note.page}`);
+  const [buttonName, setButtonName] = useState<string>(note.name);
 
   return (
     <button className={classes.button} onClick={() => setPageNumber(note.page)} type="button">
