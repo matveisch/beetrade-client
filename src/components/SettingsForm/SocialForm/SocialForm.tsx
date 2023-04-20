@@ -55,7 +55,7 @@ function SettingsForm() {
               values.telegram !== userData?.telegram ||
               values.linkedin !== userData?.linkedin)
           )
-            putData<UserDataType>(`user/${id}`, values).then(data => {
+            putData<UserDataType, SignInValuesType>(`user/${id}`, values).then(data => {
               dispatch(setUserData(data));
             });
           setSubmitting(false);

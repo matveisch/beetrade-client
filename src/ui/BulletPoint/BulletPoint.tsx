@@ -35,7 +35,7 @@ function BulletPoint({ isChecked, videoId, frameWidth, fillWidth, onClick }: Bul
             watched: !isMarked,
           };
 
-          putData<VideoType[]>(`videos/${videoId}/watchStatus`, status).then(videos => {
+          putData<VideoType[], { watched: boolean }>(`videos/${videoId}/watchStatus`, status).then(videos => {
             dispatch(setVideos(videos));
           });
         }

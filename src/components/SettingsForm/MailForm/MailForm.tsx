@@ -42,7 +42,7 @@ function MailForm() {
         onSubmit={(values: SignInValuesType, { setSubmitting, resetForm }: FormikHelpers<SignInValuesType>) => {
           if (values.email !== userData?.email) {
             if (id !== null) {
-              putData<UserDataType>(`user/${id}/updateEmail`, values).then(data => {
+              putData<UserDataType, SignInValuesType>(`user/${id}/updateEmail`, values).then(data => {
                 dispatch(setUserData(data));
                 resetForm();
               });

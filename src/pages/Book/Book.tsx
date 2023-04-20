@@ -8,7 +8,7 @@ import BookmarkButton from './BookmarkButton/BookmarkButton';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Headers from './Headers/Headers';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { selectUserData } from '../../features/userData/userDataSlice';
 import { getData, postData } from '../../lib';
 
@@ -110,7 +110,7 @@ function Book() {
         userId: userData._id,
       };
 
-      postData<Note>('notes/create', note).then(() => {
+      postData<Note, Note>('notes/create', note).then(() => {
         getData<Note[]>(`notes?userId=${userData?._id}`).then(data => {
           setNotes(data);
         });

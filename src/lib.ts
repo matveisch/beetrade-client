@@ -23,7 +23,7 @@ export async function getData<T>(url: string, signOutFunc?: () => void): Promise
   }
 }
 
-export async function postData<T>(url: string, data: unknown): Promise<T> {
+export async function postData<T, DataType>(url: string, data: DataType): Promise<T> {
   try {
     const response: AxiosResponse<T> = await axios.post(`${import.meta.env.VITE_API}/${url}`, data, {
       headers: {
@@ -34,7 +34,6 @@ export async function postData<T>(url: string, data: unknown): Promise<T> {
 
     return response.data;
   } catch (error: any) {
-    console.log(error);
     if (error.response) {
       store.dispatch(setGlobalError(error.response.data.message));
       throw new Error(error.response.data.message);
@@ -45,7 +44,7 @@ export async function postData<T>(url: string, data: unknown): Promise<T> {
   }
 }
 
-export async function putData<T>(url: string, data?: any): Promise<T> {
+export async function putData<T, DataType>(url: string, data?: DataType): Promise<T> {
   try {
     const response: AxiosResponse<T> = await axios.put(`${import.meta.env.VITE_API}/${url}`, data, {
       headers: {
