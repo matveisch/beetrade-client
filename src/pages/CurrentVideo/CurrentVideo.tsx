@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { ColorRing } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
 import classes from './CurrentVideo.module.scss';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
@@ -14,6 +13,7 @@ import Description from '../../components/Contents/Description/Description';
 import SectionsGrid from '../../components/Contents/SectionsGrid/SectionsGrid';
 import { selectUserData, setUserData } from '../../features/userData/userDataSlice';
 import { getData, putData } from '../../lib';
+import Loader from '../../ui/Loader/Loader';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos?.find(video => !video.watched);
@@ -61,26 +61,7 @@ function CurrentVideo() {
     }
   }, [userData]);
 
-  if (!videos || !currentVideo || !currentSection)
-    return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          width: '100%',
-          height: 'calc(100% - 120px)',
-          alignItems: 'center',
-        }}>
-        <ColorRing
-          visible
-          height="300"
-          width="300"
-          ariaLabel="blocks-loading"
-          wrapperClass="blocks-wrapper"
-          colors={['#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37', '#fc9a37']}
-        />
-      </div>
-    );
+  if (!videos || !currentVideo || !currentSection) return <Loader />;
 
   return windowWidth > 768 ? (
     <div className={classes.currentVideo}>

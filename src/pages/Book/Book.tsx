@@ -11,6 +11,7 @@ import Headers from './Headers/Headers';
 import { useAppSelector } from '../../hooks';
 import { selectUserData } from '../../features/userData/userDataSlice';
 import { getData, postData } from '../../lib';
+import Loader from '../../ui/Loader/Loader';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -34,6 +35,7 @@ function Book() {
   const [pageNumber, setPageNumber] = useState(1);
   const [notes, setNotes] = useState<Note[]>([]);
   const [bookLink, setBookLink] = useState<string | undefined>(undefined);
+  const [bookLoaded, setBookLoaded] = useState(false);
   const bookHeaders = [
     { page: 1, title: 'פסגה כפולה' },
     { page: 2, title: 'תחתית כפולה' },
@@ -166,7 +168,7 @@ function Book() {
         </Swiper>
       </div>
       <div className={classes.bookWrapper}>
-        <Document file={bookLink} className={classes.document}>
+        <Document file={bookLink} className={classes.document} loading={<Loader />}>
           <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />
         </Document>
       </div>
