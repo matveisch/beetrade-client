@@ -33,6 +33,7 @@ function SwiperButton({ title, slideTo }: { title: string; slideTo: number }) {
 function Book() {
   const [pageNumber, setPageNumber] = useState(1);
   const [notes, setNotes] = useState<Note[]>([]);
+  const [bookLink, setBookLink] = useState<string | undefined>(undefined);
   const bookHeaders = [
     { page: 1, title: 'פסגה כפולה' },
     { page: 2, title: 'תחתית כפולה' },
@@ -86,6 +87,10 @@ function Book() {
   ];
   const currentHeader = useRef<HTMLButtonElement>(null);
   const userData = useAppSelector(selectUserData);
+
+  useEffect(() => {
+    getData<string>('book').then(data => setBookLink(data));
+  }, []);
 
   function handlePrevPage() {
     if (pageNumber > 1) setPageNumber(pageNumber - 1);
@@ -161,7 +166,7 @@ function Book() {
         </Swiper>
       </div>
       <div className={classes.bookWrapper}>
-        <Document file="/book.pdf" className={classes.document}>
+        <Document file={bookLink} className={classes.document}>
           <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />
         </Document>
       </div>
