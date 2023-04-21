@@ -35,7 +35,6 @@ function Book() {
   const [pageNumber, setPageNumber] = useState(1);
   const [notes, setNotes] = useState<Note[]>([]);
   const [bookLink, setBookLink] = useState<string | undefined>(undefined);
-  const [bookLoaded, setBookLoaded] = useState(false);
   const bookHeaders = [
     { page: 1, title: 'פסגה כפולה' },
     { page: 2, title: 'תחתית כפולה' },
