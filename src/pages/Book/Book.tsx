@@ -174,11 +174,11 @@ function Book() {
           </SwiperSlide>
         </Swiper>
       </div>
-      {/*<div className={classes.bookWrapper}>*/}
-      {/*  <Document file={bookLink} className={classes.document} loading={<Loader />}>*/}
-      {/*    <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />*/}
-      {/*  </Document>*/}
-      {/*</div>*/}
+      <div className={classes.bookWrapper}>
+        <Document file={bookLink} className={classes.document} loading={<Loader />}>
+          <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />
+        </Document>
+      </div>
     </div>
   );
 }
