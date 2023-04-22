@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { store } from './store';
 import { setGlobalError } from './features/globalError/globalErrorSlice';
 
