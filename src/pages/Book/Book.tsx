@@ -16,6 +16,7 @@ import Loader from '../../ui/Loader/Loader';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export interface Note {
+  _id?: string;
   name: string;
   page: number;
   userId: string;
@@ -159,18 +160,25 @@ function Book() {
               </button>
               <div className={classes.notesList}>
                 {notes?.map(note => {
-                  return <BookmarkButton setPageNumber={setPageNumber} note={note} key={`note-${note.page}`} />;
+                  return (
+                    <BookmarkButton
+                      setNotes={setNotes}
+                      setPageNumber={setPageNumber}
+                      note={note}
+                      key={`note-${note.page}`}
+                    />
+                  );
                 })}
               </div>
             </div>
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className={classes.bookWrapper}>
-        <Document file={bookLink} className={classes.document} loading={<Loader />}>
-          <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />
-        </Document>
-      </div>
+      {/*<div className={classes.bookWrapper}>*/}
+      {/*  <Document file={bookLink} className={classes.document} loading={<Loader />}>*/}
+      {/*    <Page pageNumber={pageNumber} renderAnnotationLayer={false} className={classes.page} />*/}
+      {/*  </Document>*/}
+      {/*</div>*/}
     </div>
   );
 }

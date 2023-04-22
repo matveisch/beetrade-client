@@ -4,15 +4,33 @@ import bookmark from '../../../assets/images/bookmark.svg';
 import { Note } from '../Book';
 import pencil from '../../../assets/images/pencilIcon.svg';
 import tickIcon from '../../../assets/images/tickIcon.svg';
+import { deleteData, getData, putData } from '../../../lib';
 
 interface Props {
   setPageNumber: Dispatch<SetStateAction<number>>;
   note: Note;
+  setNotes: Dispatch<SetStateAction<Note[]>>;
 }
 
-function BookmarkButton({ setPageNumber, note }: Props) {
+function BookmarkButton({ setPageNumber, note, setNotes }: Props) {
   const [activeInput, setActiveInput] = useState(false);
   const [buttonName, setButtonName] = useState<string>(note.name);
+
+  function handleNoteDelete() {
+    deleteData(`notes/${note._id}`).then(() => {
+      getData<Note[]>(`notes?userId=${note.userId}`).then(data => {
+        setNotes(data);
+      });
+    });
+  }
+
+  function handleNoteRename() {
+    if (activeInput) {
+      putData<Note, { name: string }>(`notes/${note._id}`, {
+        name: buttonName,
+      });
+    }
+  }
 
   return (
     <button className={classes.button} onClick={() => setPageNumber(note.page)} type="button">
@@ -24,7 +42,10 @@ function BookmarkButton({ setPageNumber, note }: Props) {
         )}
         <div className={classes.iconsWrapper}>
           <img
-            onClick={() => setActiveInput(!activeInput)}
+            onClick={() => {
+              setActiveInput(!activeInput);
+              handleNoteRename();
+            }}
             src={activeInput ? tickIcon : pencil}
             alt="edit-icon"
             style={{
@@ -33,7 +54,7 @@ function BookmarkButton({ setPageNumber, note }: Props) {
                 'brightness(0) saturate(100%) invert(84%) sepia(30%) saturate(257%) hue-rotate(218deg) brightness(96%) contrast(92%)',
             }}
           />
-          <img src={bookmark} alt="bookmark" />
+          <img src={bookmark} alt="bookmark" onClick={handleNoteDelete} />
         </div>
       </span>
     </button>
