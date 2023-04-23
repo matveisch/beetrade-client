@@ -4,6 +4,7 @@ import { CourseType } from '../../interface/types';
 import ProgressBar from '../Sidebar/ProgressBar/ProgressBar';
 import { useAppSelector } from '../../hooks';
 import { selectVideos } from '../../features/videos/videosSlice';
+import Loader from '../../ui/Loader/Loader';
 
 interface CourseItemProps {
   course: CourseType;
@@ -11,7 +12,7 @@ interface CourseItemProps {
 function CourseItem({ course }: CourseItemProps) {
   const videos = useAppSelector(selectVideos);
 
-  if (!videos) return <div>error</div>;
+  if (!videos) return <Loader />;
 
   return (
     <div className={classes.courseItem}>

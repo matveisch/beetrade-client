@@ -20,6 +20,13 @@ export interface SectionType {
   description: string;
 }
 
+export interface BookType {
+  _id: string;
+  title: string;
+  description: string;
+  pathTitle: string;
+}
+
 export interface UserDataType {
   firstName: string;
   secondName?: string;
@@ -30,6 +37,7 @@ export interface UserDataType {
   isAdmin: boolean;
   confirmed: boolean;
   courses: CourseType[];
+  books: BookType[];
 
   facebook?: string;
   telegram?: string;
