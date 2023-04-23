@@ -1,6 +1,7 @@
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './Book.module.scss';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import addMarkImg from '../../assets/images/add-mark.svg';
@@ -8,10 +9,11 @@ import BookmarkButton from './BookmarkButton/BookmarkButton';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Headers from './Headers/Headers';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectUserData } from '../../features/userData/userDataSlice';
 import { getData, postData } from '../../lib';
 import Loader from '../../ui/Loader/Loader';
+import { setGlobalError } from '../../features/globalError/globalErrorSlice';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -89,6 +91,8 @@ function Book() {
   ];
   const currentHeader = useRef<HTMLButtonElement>(null);
   const userData = useAppSelector(selectUserData);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getData<string>('book').then(data => setBookLink(data));
@@ -128,6 +132,11 @@ function Book() {
   useEffect(() => {
     currentHeader.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [pageNumber]);
+
+  if (!userData?.books) {
+    dispatch(setGlobalError('You have no books'));
+    navigate('/products');
+  }
 
   return (
     <div className={classes.book}>

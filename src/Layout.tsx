@@ -35,7 +35,7 @@ function Layout() {
           dispatch(setGlobalError(undefined));
           setAnimationOut(false);
         }, 500);
-      }, 3000);
+      }, 5000);
     }
   }, [globalError]);
 

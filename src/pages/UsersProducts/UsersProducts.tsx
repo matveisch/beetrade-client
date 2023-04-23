@@ -35,8 +35,6 @@ function UsersProducts() {
     if (token === null) navigate('/signin');
   }, []);
 
-  console.log(userData?.books);
-
   if (!userData) return <Loader />;
 
   return (
