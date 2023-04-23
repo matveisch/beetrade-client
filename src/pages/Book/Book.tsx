@@ -1,7 +1,7 @@
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Book.module.scss';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import addMarkImg from '../../assets/images/add-mark.svg';
@@ -93,9 +93,10 @@ function Book() {
   const userData = useAppSelector(selectUserData);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { state } = useLocation();
 
   useEffect(() => {
-    getData<string>('book').then(data => setBookLink(data));
+    getData<string>(`books/${state.pathTitle}`).then(data => setBookLink(data));
   }, []);
 
   function handlePrevPage() {
@@ -133,7 +134,7 @@ function Book() {
     currentHeader.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [pageNumber]);
 
-  if (!userData?.books) {
+  if (userData && !userData.books) {
     dispatch(setGlobalError('You have no books'));
     navigate('/products');
   }

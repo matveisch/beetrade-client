@@ -9,7 +9,9 @@ function BookItem({ book }: { book: BookType }) {
         <h3>{book.title}</h3>
         <h4>{book.description}</h4>
         <button type="button">
-          <Link to="/book">book</Link>
+          <Link to="/book" state={{ pathTitle: book.pathTitle }}>
+            book
+          </Link>
         </button>
       </div>
       <img src="" alt="" />
