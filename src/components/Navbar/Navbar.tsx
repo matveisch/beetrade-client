@@ -14,10 +14,10 @@ function Navbar() {
       style={!userData ? { gridTemplateColumns: 'unset', justifyContent: 'end' } : undefined}>
       {userData && <Profile />}
       {/* {userData && <CourseChooserNavbar />} – make it active as there will be more courses */}
-      <Link to="/" className={classes.logo}>
+      <div className={classes.logo}>
         <img src={beeLogo} alt="logo" />
         <h1>BeeTrade</h1>
-      </Link>
+      </div>
     </div>
   );
 }
