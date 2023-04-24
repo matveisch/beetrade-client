@@ -1,8 +1,4 @@
 .book {
-  //display: grid;
-  //grid-template-columns: 30vw 50vw;
-  //justify-content: space-between;
-
   display: flex;
   justify-content: space-between;
   gap: 30px;
@@ -37,7 +33,6 @@
 
     @media (max-width: 768px) {
       min-height: 538px;
-      //margin-bottom: 20px;
     }
 
     @media (max-width: 425px) {
