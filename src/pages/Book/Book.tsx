@@ -1,5 +1,5 @@
 import { Document, Page, pdfjs } from 'react-pdf';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Book.module.scss';
