@@ -35,7 +35,7 @@ function Book() {
   const { state } = useLocation();
 
   useEffect(() => {
-    getData<string>(`books/${state.pathTitle}`).then(data => setBookLink(data));
+    getData<string>(`books/${state !== null ? state.pathTitle : 'beetrade-book.pdf'}`).then(data => setBookLink(data));
   }, []);
 
   useEffect(() => {
