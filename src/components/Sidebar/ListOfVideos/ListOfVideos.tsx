@@ -12,7 +12,6 @@ function ListOfVideos({ currentSectionVideos }: ListOfVideosProps) {
   const currentVideo = useAppSelector(selectCurrentVideo);
   const dispatch = useAppDispatch();
 
-  // todo: add context here passing current videos
   return (
     <div className={classes.listOfVideos}>
       {currentSectionVideos.map(video => {

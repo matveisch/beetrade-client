@@ -14,6 +14,7 @@ import Loader from '../../ui/Loader/Loader';
 import { setGlobalError } from '../../features/globalError/globalErrorSlice';
 import PageCounter from './PageCounter/PageCounter';
 import Notes from './Notes/Notes';
+import SwiperButton from '../../ui/SwiperButton/SwiperButton';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -22,16 +23,6 @@ export interface Note {
   name: string;
   page: number;
   userId: string;
-}
-
-function SwiperButton({ title, slideTo }: { title: string; slideTo: number }) {
-  const swiper = useSwiper();
-
-  return (
-    <button className={classes.swiperButton} onClick={() => swiper.slideTo(slideTo)} type="button">
-      {title}
-    </button>
-  );
 }
 
 function Book() {

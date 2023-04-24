@@ -14,6 +14,7 @@ import SectionsGrid from '../../components/Contents/SectionsGrid/SectionsGrid';
 import { selectUserData, setUserData } from '../../features/userData/userDataSlice';
 import { getData, putData } from '../../lib';
 import Loader from '../../ui/Loader/Loader';
+import { setGlobalError } from '../../features/globalError/globalErrorSlice';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos?.find(video => !video.watched);
@@ -60,6 +61,11 @@ function CurrentVideo() {
       });
     }
   }, [userData]);
+
+  if (userData && !userData.courses) {
+    dispatch(setGlobalError('You have no courses'));
+    navigate('/products');
+  }
 
   if (!videos || !currentVideo || !currentSection) return <Loader />;
 
