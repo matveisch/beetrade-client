@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import classes from './Navbar.module.scss';
 import Profile from './Profile/Profile';
 import { useAppSelector } from '../../hooks';
