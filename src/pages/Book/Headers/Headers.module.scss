@@ -6,6 +6,13 @@
   flex-grow: 1;
   overflow-y: scroll;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   h3 {
     color: #deceec;
     width: fit-content;

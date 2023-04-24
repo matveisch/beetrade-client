@@ -1,0 +1,36 @@
+.notes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
+
+  .addNoteButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    gap: 10px;
+    width: 100%;
+
+    background: linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
+    border-radius: 8px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 67.99%;
+    color: #000000;
+  }
+
+  .notesList {
+    width: 100%;
+    margin-top: 60px;
+    max-height: 600px;
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
