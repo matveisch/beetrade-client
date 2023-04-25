@@ -40,13 +40,13 @@ function UsersProducts() {
   return (
     <div className={classes.usersProducts}>
       <h2>החומרים שלי</h2>
-      <h3>קורסים</h3>
+      <h3 className={classes.blockHeader}>קורסים</h3>
       <div className={classes.productsBlock}>
         {userData?.courses.map(course => {
           return <CourseItem course={course} key={course._id} />;
         })}
       </div>
-      <h3>Books</h3>
+      <h3 className={classes.blockHeader}>Books</h3>
       <div className={classes.productsBlock}>
         {userData.books.map(book => {
           return <BookItem book={book} key={book._id} />;

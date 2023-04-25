@@ -13,7 +13,7 @@
 
   img {
     width: 206px;
-    height: 182px;
+    height: auto;
 
     @media (max-width: 525px) {
       width: 103px;
@@ -22,6 +22,10 @@
   }
 
   .courseData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     h3 {
       font-family: $font;
       font-style: normal;
