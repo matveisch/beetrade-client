@@ -6,9 +6,9 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { VideoType } from '../../interface/types';
 import Contents from '../../components/Contents/Contents';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { selectVideos, setVideos } from '../../features/videos/videosSlice';
+import { setVideos } from '../../features/videos/videosSlice';
 import { selectCurrentVideo, setCurrentVideo } from '../../features/currentVideo/currentVideoSlice';
-import { selectCurrentSection, setCurrentSection } from '../../features/currentSection/currentSectionSlice';
+import { setCurrentSection } from '../../features/currentSection/currentSectionSlice';
 import Description from '../../components/Contents/Description/Description';
 import SectionsGrid from '../../components/Contents/SectionsGrid/SectionsGrid';
 import { selectUserData, setUserData } from '../../features/userData/userDataSlice';
@@ -26,9 +26,7 @@ export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
 }
 
 function CurrentVideo() {
-  const videos = useAppSelector(selectVideos);
   const currentVideo = useAppSelector(selectCurrentVideo);
-  const currentSection = useAppSelector(selectCurrentSection);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dispatch = useAppDispatch();
   const userData = useAppSelector(selectUserData);
@@ -69,15 +67,12 @@ function CurrentVideo() {
     navigate('/products');
   }
 
-  if (!videos || !currentVideo || !currentSection) return <Loader />;
+  if (!currentVideo) return <Loader />;
 
   if (windowWidth > 768) {
     return (
       <div className={classes.currentVideo}>
-        <Sidebar
-          currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
-          videos={videos}
-        />
+        <Sidebar />
         <div className={classes.videoPlayerContainer}>
           <VideoPlayer />
           <Contents />
@@ -108,10 +103,7 @@ function CurrentVideo() {
           />
         </nav>
         <SwiperSlide>
-          <Sidebar
-            currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
-            videos={videos}
-          />
+          <Sidebar />
         </SwiperSlide>
         <SwiperSlide>
           <Description body={currentVideo.description} />

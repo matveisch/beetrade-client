@@ -1,7 +1,10 @@
 .sideBar {
-  //min-width: 310px;
-  //
-  //@media (max-width: 768px) {
-  //  width: 100%;
-  //}
+  .swiper {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+
+  .buttonsWrapper {
+  }
 }
