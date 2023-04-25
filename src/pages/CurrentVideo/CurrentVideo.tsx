@@ -30,7 +30,6 @@ function CurrentVideo() {
   const currentVideo = useAppSelector(selectCurrentVideo);
   const currentSection = useAppSelector(selectCurrentSection);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [currentView, setCurrentView] = useState<'sections' | 'sidebar' | 'description'>('sidebar');
   const dispatch = useAppDispatch();
   const userData = useAppSelector(selectUserData);
   const navigate = useNavigate();
@@ -72,62 +71,55 @@ function CurrentVideo() {
 
   if (!videos || !currentVideo || !currentSection) return <Loader />;
 
-  return windowWidth > 768 ? (
-    <div className={classes.currentVideo}>
-      <Sidebar
-        currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
-        videos={videos}
-      />
-      <div className={classes.videoPlayerContainer}>
-        <VideoPlayer />
-        <Contents />
+  if (windowWidth > 768) {
+    return (
+      <div className={classes.currentVideo}>
+        <Sidebar
+          currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
+          videos={videos}
+        />
+        <div className={classes.videoPlayerContainer}>
+          <VideoPlayer />
+          <Contents />
+        </div>
       </div>
-    </div>
-  ) : (
+    );
+  }
+
+  return (
     <div className={classes.currentVideoMobile}>
       <VideoPlayer />
       <Swiper centeredSlides slidesPerView="auto" className={classes.swiper}>
         <nav className={classes.buttonsWrapper}>
-          <SwiperButton title="סקירה כללית" slideTo={0} />
-          <SwiperButton title="רשימת שיעורים" slideTo={1} />
+          <SwiperButton
+            title="sidebar"
+            slideTo={0}
+            style={{ background: 'linear-gradient(264.3deg, #9E2FFF -168.03%, #FF9E2F 100%)' }}
+          />
+          <SwiperButton
+            title="סקירה כללית"
+            slideTo={1}
+            style={{ background: 'linear-gradient(264.3deg, #9E2FFF -168.03%, #FF9E2F 100%)' }}
+          />
+          <SwiperButton
+            title="רשימת שיעורים"
+            slideTo={2}
+            style={{ background: 'linear-gradient(264.3deg, #9E2FFF -168.03%, #FF9E2F 100%)' }}
+          />
         </nav>
-        <SwiperSlide>
-          <div className={classes.contents}>
-            <Description body={currentVideo.description} />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <SectionsGrid />
-        </SwiperSlide>
         <SwiperSlide>
           <Sidebar
             currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
             videos={videos}
           />
         </SwiperSlide>
+        <SwiperSlide>
+          <Description body={currentVideo.description} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SectionsGrid />
+        </SwiperSlide>
       </Swiper>
-      <div className={classes.swiper}>
-        {/*<div className={classes.buttons}>*/}
-        {/*  <button type="button" onClick={() => setCurrentView('sidebar')}>*/}
-        {/*    Sidebar*/}
-        {/*    <div className={classes.afterElement} style={currentView !== 'sidebar' ? { display: 'none' } : undefined} />*/}
-        {/*  </button>*/}
-        {/*  <button type="button" onClick={() => setCurrentView('description')}>*/}
-        {/*    Description*/}
-        {/*    <div*/}
-        {/*      className={classes.afterElement}*/}
-        {/*      style={currentView !== 'description' ? { display: 'none' } : undefined}*/}
-        {/*    />*/}
-        {/*  </button>*/}
-        {/*  <button type="button" onClick={() => setCurrentView('sections')}>*/}
-        {/*    Sections*/}
-        {/*    <div*/}
-        {/*      className={classes.afterElement}*/}
-        {/*      style={currentView !== 'sections' ? { display: 'none' } : undefined}*/}
-        {/*    />*/}
-        {/*  </button>*/}
-        {/*</div>*/}
-      </div>
     </div>
   );
 }

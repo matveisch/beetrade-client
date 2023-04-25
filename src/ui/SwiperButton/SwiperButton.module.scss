@@ -2,10 +2,12 @@
   padding: 15px 0;
   background: linear-gradient(264.09deg, #9e2fff -19.41%, #ff9e2f 94.7%);
   border-radius: 8px;
-
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 67.99%;
   color: #000000;
+
+  @media (max-width: 425px) {
+    padding: 5px 0;
+  }
 }
