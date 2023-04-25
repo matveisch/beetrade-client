@@ -16,8 +16,16 @@ function Contents() {
     <div className={classes.contents}>
       <Swiper centeredSlides slidesPerView="auto" className={classes.swiper}>
         <nav className={classes.buttonsWrapper}>
-          <SwiperButton title="סקירה כללית" slideTo={0} />
-          <SwiperButton title="רשימת שיעורים" slideTo={1} />
+          <SwiperButton
+            title="סקירה כללית"
+            slideTo={0}
+            style={{ background: 'linear-gradient(264.3deg, #9E2FFF -168.03%, #FF9E2F 100%)' }}
+          />
+          <SwiperButton
+            title="רשימת שיעורים"
+            slideTo={1}
+            style={{ background: 'linear-gradient(264.3deg, #9E2FFF -168.03%, #FF9E2F 100%)' }}
+          />
         </nav>
         <SwiperSlide>
           <div className={classes.contents}>
