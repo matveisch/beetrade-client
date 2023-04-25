@@ -10,6 +10,19 @@
   width: 100%;
 
   .swiper {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .buttonsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+  }
+
+  .swiper {
     .buttons {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;

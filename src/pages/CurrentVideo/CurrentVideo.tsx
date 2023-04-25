@@ -15,6 +15,9 @@ import { selectUserData, setUserData } from '../../features/userData/userDataSli
 import { getData, putData } from '../../lib';
 import Loader from '../../ui/Loader/Loader';
 import { setGlobalError } from '../../features/globalError/globalErrorSlice';
+import SwiperButton from '../../ui/SwiperButton/SwiperButton';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 export function getFirstUnseenVideo(videos: VideoType[]): VideoType {
   const firstUnseen = videos?.find(video => !video.watched);
@@ -83,36 +86,48 @@ function CurrentVideo() {
   ) : (
     <div className={classes.currentVideoMobile}>
       <VideoPlayer />
+      <Swiper centeredSlides slidesPerView="auto" className={classes.swiper}>
+        <nav className={classes.buttonsWrapper}>
+          <SwiperButton title="סקירה כללית" slideTo={0} />
+          <SwiperButton title="רשימת שיעורים" slideTo={1} />
+        </nav>
+        <SwiperSlide>
+          <div className={classes.contents}>
+            <Description body={currentVideo.description} />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SectionsGrid />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Sidebar
+            currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
+            videos={videos}
+          />
+        </SwiperSlide>
+      </Swiper>
       <div className={classes.swiper}>
-        <div className={classes.buttons}>
-          <button type="button" onClick={() => setCurrentView('sidebar')}>
-            Sidebar
-            <div className={classes.afterElement} style={currentView !== 'sidebar' ? { display: 'none' } : undefined} />
-          </button>
-          <button type="button" onClick={() => setCurrentView('description')}>
-            Description
-            <div
-              className={classes.afterElement}
-              style={currentView !== 'description' ? { display: 'none' } : undefined}
-            />
-          </button>
-          <button type="button" onClick={() => setCurrentView('sections')}>
-            Sections
-            <div
-              className={classes.afterElement}
-              style={currentView !== 'sections' ? { display: 'none' } : undefined}
-            />
-          </button>
-        </div>
+        {/*<div className={classes.buttons}>*/}
+        {/*  <button type="button" onClick={() => setCurrentView('sidebar')}>*/}
+        {/*    Sidebar*/}
+        {/*    <div className={classes.afterElement} style={currentView !== 'sidebar' ? { display: 'none' } : undefined} />*/}
+        {/*  </button>*/}
+        {/*  <button type="button" onClick={() => setCurrentView('description')}>*/}
+        {/*    Description*/}
+        {/*    <div*/}
+        {/*      className={classes.afterElement}*/}
+        {/*      style={currentView !== 'description' ? { display: 'none' } : undefined}*/}
+        {/*    />*/}
+        {/*  </button>*/}
+        {/*  <button type="button" onClick={() => setCurrentView('sections')}>*/}
+        {/*    Sections*/}
+        {/*    <div*/}
+        {/*      className={classes.afterElement}*/}
+        {/*      style={currentView !== 'sections' ? { display: 'none' } : undefined}*/}
+        {/*    />*/}
+        {/*  </button>*/}
+        {/*</div>*/}
       </div>
-      {currentView === 'sections' && <SectionsGrid />}
-      {currentView === 'description' && <Description body={currentVideo.description} />}
-      {currentView === 'sidebar' && (
-        <Sidebar
-          currentSectionVideos={videos.filter(video => video.section._id === currentSection._id)}
-          videos={videos}
-        />
-      )}
     </div>
   );
 }
