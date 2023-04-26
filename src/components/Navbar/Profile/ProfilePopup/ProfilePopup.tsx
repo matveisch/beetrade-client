@@ -59,10 +59,10 @@ function ProfilePopup({ open, setOpen }: ProfilePopupProps) {
     <div className={classes.profilePopup} style={!open ? { display: 'none' } : undefined}>
       <div className={classes.popupHeader}>
         <button type="button" onClick={() => setOpen(false)}>
-          <img src={closeButton} alt="close-button" />
+          <img src={closeButton} alt="close-button" className={classes.closeIcon} />
         </button>
         <h1>{userData?.firstName}</h1>
-        <img src={profileIcon} alt="profile-icon" />
+        <img src={profileIcon} alt="profile-icon" className={classes.profileIcon} />
       </div>
       <div className={classes.linksContainer}>
         {links.map(link => (

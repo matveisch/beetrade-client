@@ -16,4 +16,21 @@
 
     color: #d4c7de;
   }
+
+  img {
+    align-self: start;
+    margin-top: 1vw;
+  }
+
+  @media (max-width: 425px) {
+    gap: 4vw;
+
+    h1 {
+      font-size: 8vw;
+    }
+
+    img {
+      width: 7vw;
+    }
+  }
 }

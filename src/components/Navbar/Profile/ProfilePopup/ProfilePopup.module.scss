@@ -8,14 +8,36 @@
   top: 0;
   padding: 11px 20px 20px 20px;
   z-index: 10;
-  max-width: calc(205px - 40px);
+  max-width: 205px;
+
+  @media (max-width: 425px) {
+    width: 100vw;
+    height: 100vh;
+    max-width: unset;
+  }
 
   .popupHeader {
     display: flex;
     align-items: center;
 
+    .profileIcon {
+      @media (max-width: 425px) {
+        width: 7vw;
+        margin-top: 1vw;
+      }
+    }
+
     button {
       height: 11px;
+
+      @media (max-width: 425px) {
+        height: unset;
+
+        .closeIcon {
+          width: 7vw;
+          margin-top: 1vw;
+        }
+      }
     }
 
     h1 {
@@ -32,6 +54,11 @@
       font-size: 16px;
       line-height: 19px;
       text-align: right;
+
+      @media (max-width: 425px) {
+        font-size: 8vw;
+        line-height: unset;
+      }
     }
   }
 
@@ -66,6 +93,20 @@
       color: #d4c7de;
 
       opacity: 0.8;
+    }
+
+    @media (max-width: 425px) {
+      gap: 4vw;
+
+      h1 {
+        font-size: 8vw;
+        line-height: unset;
+      }
+
+      img {
+        width: 7vw;
+        margin-top: 1vw;
+      }
     }
   }
 }
